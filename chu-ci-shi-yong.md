@@ -1,7 +1,8 @@
 ---
 description: 快速上手教程
+noIndex: true
 layout:
-  width: default
+  width: wide
   title:
     visible: true
   description:
@@ -18,5 +19,5 @@ layout:
     visible: true
 ---
 
-# 初次使用
+# 🥸 初次使用
 
