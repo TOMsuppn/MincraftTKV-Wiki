@@ -1,6 +1,5 @@
 ---
 description: 快速上手教程
-noIndex: true
 layout:
   width: wide
   title:
