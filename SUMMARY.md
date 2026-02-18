@@ -1,3 +1,4 @@
 # Table of contents
 
-* [😎 关于MinecraftTarkov](README.md)
+* [💡 首次使用 MinecraftTKV](README.md)
+* [藏身处](cang-shen-chu.md)
