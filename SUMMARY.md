@@ -1,3 +1,3 @@
 # Table of contents
 
-* [Page](README.md)
+* [💡 首次使用 MinecraftTKV](README.md)
