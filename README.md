@@ -6,7 +6,7 @@ icon: clock-rotate-left
 # 更新日志
 
 {% updates format="full" %}
-{% update date="2026-02-24" %}
+{% update date="2026-02-23" %}
 ## **MinecraftTKV Alpha.1-rc.2-pre2-hotfix2**
 
 {% hint style="info" %}
@@ -18,7 +18,7 @@ icon: clock-rotate-left
 {% endhint %}
 {% endupdate %}
 
-{% update date="2026-02-24" %}
+{% update date="2026-02-12" %}
 ## **MinecraftTKV Alpha.1-rc.2-pre1-260212**
 
 {% hint style="info" %}
