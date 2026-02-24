@@ -1,3 +1,3 @@
 # Table of contents
 
-* [😎 关于MinecraftTarkov](README.md)
+* [更新日志](README.md)
