@@ -8,7 +8,7 @@ description: 关于撤离点的一切
 
 当前版本，包含以下撤离点类型：
 
-<table><thead><tr><th width="203">撤离点类型</th><th>名称</th><th>效果/使用方法</th></tr></thead><tbody><tr><td>常规撤离点</td><td>EVAC_OPEN</td><td>正常撤离点</td></tr><tr><td>拉闸撤离点</td><td>EVAC_SWITCH</td><td>闸门互动后撤离点开启</td></tr><tr><td>轻装撤离点</td><td>EVAC_LIGHT</td><td>当玩家背包内无任何物品时方可撤离</td></tr><tr><td>信号弹撤离点</td><td>EVAC_FLARE</td><td>当玩家使用“荧光棒”在撤离点范围内右键时，会开启此撤离点<img src=".gitbook/assets/image (3).png" alt=""></td></tr></tbody></table>
+<table><thead><tr><th width="203">撤离点类型</th><th>名称</th><th>效果/使用方法</th></tr></thead><tbody><tr><td>常规撤离点</td><td>EVAC_OPEN</td><td>正常撤离点</td></tr><tr><td>拉闸撤离点</td><td>EVAC_GATE</td><td>与闸门互动后撤离点开启</td></tr><tr><td>轻装撤离点</td><td>EVAC_LIGHT</td><td>当玩家背包内无任何物品时方可撤离</td></tr><tr><td>信号弹撤离点</td><td>EVAC_FLARE</td><td>当玩家使用“荧光棒”在撤离点范围内右键时，会开启此撤离点<img src=".gitbook/assets/image (3).png" alt=""></td></tr></tbody></table>
 
 ## 如何设置撤离点
 
