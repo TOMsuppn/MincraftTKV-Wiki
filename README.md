@@ -9,6 +9,7 @@ icon: clock-rotate-left
 {% update date="2026-03-03" %}
 ## MinecraftTKV Alpha.1-rc.2-pre4
 
+{% hint style="success" %}
 \[+] 新增轻装，信号弹，拉闸撤离点
 
 \[+] 新增闸门（gate）可设置点位
@@ -24,6 +25,7 @@ icon: clock-rotate-left
 \[+] 新增进度系统和进度菜单，玩家可以通过获取经验值来升级获得货币奖励
 
 \[+] 重制配置文件结构，以供适应新体系
+{% endhint %}
 
 <div><figure><img src=".gitbook/assets/e1bdd9f3074ca5c4acd1140171542625.png" alt=""><figcaption></figcaption></figure> <figure><img src=".gitbook/assets/ae1569e090fd66e9439b3cf1c4aa61d2.png" alt=""><figcaption></figcaption></figure> <figure><img src=".gitbook/assets/34487160da877dbef5a14cac33d4f127.png" alt=""><figcaption></figcaption></figure></div>
 {% endupdate %}
