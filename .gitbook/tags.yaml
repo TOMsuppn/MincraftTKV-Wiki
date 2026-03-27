@@ -1,6 +1,12 @@
-- tag: alpha
-  label: Alpha
-  color: $danger
-- tag: hotfix
-  label: Hotfix
+- tag: wan-jia-ming-ling
+  label: 玩家命令
   color: yellow
+- tag: xi-tong-xin-xi
+  label: 系统信息
+  color: blue
+- tag: quan-xian-xin-xi
+  label: 权限信息
+  color: purple
+- tag: guan-li-ming-ling
+  label: 管理命令
+  color: orange

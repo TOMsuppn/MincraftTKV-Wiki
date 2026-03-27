@@ -1,120 +1,88 @@
 ---
-description: 新特性，新功能 都在这里
-icon: clock-rotate-left
+description: MinecraftTKV 初次上手教程
+cover: .gitbook/assets/jc.png
+coverY: 86.466065747614
+coverHeight: 423
 ---
 
-# 更新日志
+# 💡 首次使用 MinecraftTKV
 
-{% updates format="full" %}
-{% update date="2026-03-03" tags="alpha" %}
-## MinecraftTKV Alpha.1-rc.2-pre4
-
-{% hint style="success" %}
-\[+] 新增轻装，信号弹，拉闸撤离点
-
-\[+] 新增闸门（gate）可设置点位
-
-\[+] 新增战局撤离点随机刷新逻辑
-
-\[+] 新增经济系统，可转账，冻结，经济排行榜
-
-\[+] 新增统计信息列表，玩家可以查看上一次战局和总统计数据
-
-\[\~] 修复玩家在匹配中退出后无法重新开启匹配的问题
-
-\[+] 新增进度系统和进度菜单，玩家可以通过获取经验值来升级获得货币奖励
-
-\[+] 重制配置文件结构，以供适应新体系
+{% hint style="info" %}
+我们制作了一个视频教程 [**->点击查看<-**](https://www.bilibili.com/video/BV1wjZtBbEqW/)
 {% endhint %}
 
-<div><figure><img src=".gitbook/assets/e1bdd9f3074ca5c4acd1140171542625.png" alt=""><figcaption></figcaption></figure> <figure><img src=".gitbook/assets/ae1569e090fd66e9439b3cf1c4aa61d2.png" alt=""><figcaption></figcaption></figure> <figure><img src=".gitbook/assets/34487160da877dbef5a14cac33d4f127.png" alt=""><figcaption></figcaption></figure></div>
-{% endupdate %}
+{% stepper %}
+{% step %}
+### **服务器核心**安装
 
-{% update date="2026-02-28" tags="alpha" %}
-## MinecraftTKV Alpha.1-rc.2-pre3
+我们推荐使用 **Paper1.21.8** 版本加载此插件
 
-{% hint style="success" %}
-\[\~] 修复物资编辑器中物品卡死BUG\
-\[+] 新增Scav命名池自定义配置\
-\[+] 新增Tab菜单开关配置\
-\[\~] 重构配置文件架构\
-\[\~] 修复地图编辑器将点位设置在方块内部的bug\
-\[\~] 修复撤离点对创造/旁观玩家生效\
-\[+] 新增实验功能：PMC-BOT，当功能开启PMC玩家会在战局人数不足时自动补全空位。
+首先前往 [**官网**](https://papermc.io) 下载最新核心
+
+随后**运行**服务器,填写**协议**
+
+这样服务器便已启动成功
+
+<figure><img src=".gitbook/assets/Screenshot 2026-02-18 at 19.56.22.png" alt=""><figcaption></figcaption></figure>
+{% endstep %}
+
+{% step %}
+### 插件初始化
+
+将 **MinecraftTKV**插件 放入**plugins**文件夹，随后运行服务器
+
+插件会报错，这时关闭服务器并在**config**文件中填写您的**License**
+
+再次运行服务器，插件**正常运行**
+
+<figure><img src=".gitbook/assets/Screenshot 2026-02-18 at 19.57.49.png" alt="配置文件" width="375"><figcaption></figcaption></figure>
+{% endstep %}
+
+{% step %}
+### 地图文件设置
+
+打开服务器根目录下的 **MTKV** 文件夹，随后在 **maps** 文件夹下放入你已准备好的地图文件
+
+{% hint style="info" %}
+注意：请勿使用中文或特殊符号作为地图名
 {% endhint %}
-{% endupdate %}
 
-{% update date="2026-02-23" tags="alpha,hotfix" %}
-## **MinecraftTKV Alpha.1-rc.2-pre2-hotfix2**
+启动服务器，便已完成地图设置
+{% endstep %}
 
-{% hint style="warning" %}
-\[\~] 修复玩家在藏身处无限制使用/play命令的bug\
-\[\~] 修复玩家在战局中开启新战局的bug\
-\[+] 玩家在开局10s倒计时期间会获得免疫伤害的效果\
-\[+] 玩家在藏身处时会获得免疫伤害的效果\
-\[+] 玩家不能再通过退出游戏的方式脱离战局
-{% endhint %}
-{% endupdate %}
+{% step %}
+### 物资箱设置
 
-{% update date="2026-02-12" tags="alpha,hotfix" %}
-## **MinecraftTKV Alpha.1-rc.2-pre1-260212**
+在**拥有OP**的情况下运行 <kbd>**/mtkv get loot**</kbd> 指令
 
-{% hint style="warning" %}
-\[+] 更新藏身处地图文件，加入可存放物品的箱子，工作台等拓展内容&#x20;
+放置箱子后，**蹲下右键点击**打开编辑界面
 
-\[\~] 优化玩家进入队列的速度
-{% endhint %}
-{% endupdate %}
+将所需要加入的物品拖**拽至内部**，根据提示调整**概率和刷新数**
 
-{% update date="2026-02-07" tags="alpha" %}
-## **MinecraftTKV Alpha.1-rc.2-pre1**
+设置完成后点击**保存**，这样此编号的物资箱便已设置完成
 
-{% hint style="success" %}
-\[+] 多队列系统&#x20;
 
-\[+] 玩家定位表：新增 PLAYER\_TO\_LOBBY&#x20;
 
-\[+] 房间预占用：新增 RESERVED\_MATCH\_WORLDS&#x20;
+<figure><img src=".gitbook/assets/Screenshot 2026-02-18 at 20.03.09.png" alt="" width="563"><figcaption></figcaption></figure>
+{% endstep %}
 
-\[+] SEARCHING → WAITING 自动迁移&#x20;
+{% step %}
+### 地图点位设置
 
-\[+] 分段计时机制&#x20;
+输入 <kbd>/mtkv setmanager map 地图文件名</kbd> 进入**地图编辑器**
 
-\[+] 最大人数动态化&#x20;
+根据提示在所需处输入 **命令设置** 点位或者点击 **9号栏位的编辑器** 打开编辑模式即可
+{% endstep %}
 
-\[+] BossBar 时间格式&#x20;
+{% step %}
+### 如何进入匹配
 
-\[+] SEARCHING 扫光标题&#x20;
+如何进入匹配
 
-\[\~] 兼容性修复：扫光动画不再依赖 Bukkit.getCurrentTick()&#x20;
+匹配**无需任何权限**，玩家仅需要输入 <kbd>/play + 地图名</kbd> 便可进入匹配队列
 
-\[-] 移除旧等待机制&#x20;
+**单局人数上限**取决于该**地图玩家出生点数量**
+{% endstep %}
+{% endstepper %}
 
-\[-] 移除 SEARCHING 进度累积逻辑
-{% endhint %}
-{% endupdate %}
-
-{% update date="2026-01-31" tags="alpha,hotfix" %}
-## **MinecraftTKV Alpha.1-rc.1-fix3**
-
-{% hint style="warning" %}
-\[\~]调整TAB菜单样式:“MinecraftTKV”文字黄色扫光速度曲线调整为正弦函数&#x20;
-
-\[\~]调整插件启动提示信息，删除冗余的debuglog&#x20;
-
-\[\~]调整物资搜索菜单玻璃板颜色设置，加入区分暂停搜索和正在搜索的识别符；统一搜索提示文字为白色&#x20;
-
-\[+]添加玩家通过点击正在搜索项目从而暂停搜索的功能&#x20;
-
-\[\~]将物资搜索时间调整为1.3s～3.2s（原2.8s）；将尸体搜索时间调整为4.8s～8.7s（原5s），且搜索时间与尸体绑定 不同玩家搜索时间一致&#x20;
-
-\[\~]Scav不再掉落战利品&#x20;
-
-\[\~]修复物资编辑系统有关“最大刷新值”的文本显示不一致问题&#x20;
-
-\[-]移除“正在等待玩家”的Bossbar&#x20;
-
-\[-]移除匹配状态提示信息等众多Debug信息
-{% endhint %}
-{% endupdate %}
-{% endupdates %}
+#### 恭喜🎉，看起来你已经完成了插件的最基础配置！
