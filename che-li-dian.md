@@ -1,5 +1,7 @@
 ---
 description: 关于撤离点的一切
+tags:
+  - xi-tong-xin-xi
 ---
 
 # 撤离点
