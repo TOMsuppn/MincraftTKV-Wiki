@@ -1,0 +1,6 @@
+- tag: alpha
+  label: Alpha
+  color: $danger
+- tag: hotfix
+  label: Hotfix
+  color: yellow

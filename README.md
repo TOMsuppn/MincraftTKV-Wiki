@@ -6,9 +6,10 @@ icon: clock-rotate-left
 # 更新日志
 
 {% updates format="full" %}
-{% update date="2026-03-03" %}
+{% update date="2026-03-03" tags="alpha" %}
 ## MinecraftTKV Alpha.1-rc.2-pre4
 
+{% hint style="success" %}
 \[+] 新增轻装，信号弹，拉闸撤离点
 
 \[+] 新增闸门（gate）可设置点位
@@ -24,11 +25,12 @@ icon: clock-rotate-left
 \[+] 新增进度系统和进度菜单，玩家可以通过获取经验值来升级获得货币奖励
 
 \[+] 重制配置文件结构，以供适应新体系
+{% endhint %}
 
 <div><figure><img src=".gitbook/assets/e1bdd9f3074ca5c4acd1140171542625.png" alt=""><figcaption></figcaption></figure> <figure><img src=".gitbook/assets/ae1569e090fd66e9439b3cf1c4aa61d2.png" alt=""><figcaption></figcaption></figure> <figure><img src=".gitbook/assets/34487160da877dbef5a14cac33d4f127.png" alt=""><figcaption></figcaption></figure></div>
 {% endupdate %}
 
-{% update date="2026-02-28" %}
+{% update date="2026-02-28" tags="alpha" %}
 ## MinecraftTKV Alpha.1-rc.2-pre3
 
 {% hint style="success" %}
@@ -42,7 +44,7 @@ icon: clock-rotate-left
 {% endhint %}
 {% endupdate %}
 
-{% update date="2026-02-23" %}
+{% update date="2026-02-23" tags="alpha,hotfix" %}
 ## **MinecraftTKV Alpha.1-rc.2-pre2-hotfix2**
 
 {% hint style="warning" %}
@@ -54,7 +56,7 @@ icon: clock-rotate-left
 {% endhint %}
 {% endupdate %}
 
-{% update date="2026-02-12" %}
+{% update date="2026-02-12" tags="alpha,hotfix" %}
 ## **MinecraftTKV Alpha.1-rc.2-pre1-260212**
 
 {% hint style="warning" %}
@@ -64,7 +66,7 @@ icon: clock-rotate-left
 {% endhint %}
 {% endupdate %}
 
-{% update date="2026-02-07" %}
+{% update date="2026-02-07" tags="alpha" %}
 ## **MinecraftTKV Alpha.1-rc.2-pre1**
 
 {% hint style="success" %}
@@ -92,7 +94,7 @@ icon: clock-rotate-left
 {% endhint %}
 {% endupdate %}
 
-{% update date="2026-01-31" %}
+{% update date="2026-01-31" tags="alpha,hotfix" %}
 ## **MinecraftTKV Alpha.1-rc.1-fix3**
 
 {% hint style="warning" %}
