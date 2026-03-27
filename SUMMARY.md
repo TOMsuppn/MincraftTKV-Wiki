@@ -14,7 +14,7 @@
 
 ## 🥸 管理命令 <a href="#admincommands" id="admincommands"></a>
 
-* [Page 1](admincommands/page-1.md)
+* [Page 2](admincommands/page-2.md)
 
 ## 🖥️ 系统 <a href="#system" id="system"></a>
 
