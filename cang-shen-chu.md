@@ -1,5 +1,7 @@
 ---
 description: 关于藏身处的一切
+tags:
+  - xi-tong-xin-xi
 ---
 
 # 藏身处
