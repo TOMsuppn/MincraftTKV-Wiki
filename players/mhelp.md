@@ -1,0 +1,66 @@
+---
+description: 关于 /mhelp 命令，玩家帮助功能的信息
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+tags:
+  - wan-jia-ming-ling
+---
+
+# Mhelp（玩家命令帮助）
+
+### `/mhelp`
+
+#### 命令格式：
+
+```
+/mhelp
+```
+
+#### 执行对象：
+
+* 仅**玩家**
+
+#### 权限：
+
+* **minecrafttkv.help.use**
+
+#### 用途：
+
+* 打开玩家帮助面板
+* 查看当前服务器常用玩家命令入口
+* 查看基础运行状态信息
+
+#### 功能说明：
+
+* 会显示插件名称、版本和作者信息
+* 会展示玩家当前可用的常用命令快捷入口
+* 会显示在线人数、TPS、MSPT、AI 状态、插件状态
+* 不需要额外参数，输入后直接打开帮助面板
+
+#### 常见示例：
+
+```
+/mhelp
+```
+
+#### 注意事项：
+
+* **仅玩家**可以执行
+* 如果玩家没有 `minecrafttkv.help.use` 权限，则无法使用
+* 这是推荐玩家优先查看的总帮助入口
+
+***

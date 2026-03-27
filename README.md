@@ -10,8 +10,8 @@
 
 查看使用教程？点击下方跳转：
 
-{% content-ref url="https://app.gitbook.com/s/5eqp4KY8HVBhE6DsY4cU/" %}
-[首次使用 MinecraftTKV](https://app.gitbook.com/s/5eqp4KY8HVBhE6DsY4cU/)
+{% content-ref url="README (1).md" %}
+[README (1).md](<README (1).md>)
 {% endcontent-ref %}
 
 查看更新日志？点击下方跳转：
@@ -19,3 +19,4 @@
 {% content-ref url="https://app.gitbook.com/s/7gr5ldxcONDlQCCYWK4l/" %}
 [更新日志](https://app.gitbook.com/s/7gr5ldxcONDlQCCYWK4l/)
 {% endcontent-ref %}
+
