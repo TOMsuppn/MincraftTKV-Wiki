@@ -13,7 +13,7 @@ coverHeight: 423
 
 {% stepper %}
 {% step %}
-### **服务器核心**安装
+#### **服务器核心**安装
 
 我们推荐使用 **Paper1.21.8** 版本加载此插件
 
@@ -27,7 +27,7 @@ coverHeight: 423
 {% endstep %}
 
 {% step %}
-### 插件初始化
+#### 插件初始化
 
 将 **MinecraftTKV**插件 放入**plugins**文件夹，随后运行服务器
 
@@ -39,7 +39,7 @@ coverHeight: 423
 {% endstep %}
 
 {% step %}
-### 地图文件设置
+#### 地图文件设置
 
 打开服务器根目录下的 **MTKV** 文件夹，随后在 **maps** 文件夹下放入你已准备好的地图文件
 
@@ -51,7 +51,7 @@ coverHeight: 423
 {% endstep %}
 
 {% step %}
-### 物资箱设置
+#### 物资箱设置
 
 在**拥有OP**的情况下运行 <kbd>**/mtkv get loot**</kbd> 指令
 
@@ -61,13 +61,11 @@ coverHeight: 423
 
 设置完成后点击**保存**，这样此编号的物资箱便已设置完成
 
-
-
 <figure><img src=".gitbook/assets/Screenshot 2026-02-18 at 20.03.09.png" alt="" width="563"><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
-### 地图点位设置
+#### 地图点位设置
 
 输入 <kbd>/mtkv setmanager map 地图文件名</kbd> 进入**地图编辑器**
 
@@ -75,7 +73,7 @@ coverHeight: 423
 {% endstep %}
 
 {% step %}
-### 如何进入匹配
+#### 如何进入匹配
 
 如何进入匹配
 

@@ -14,11 +14,11 @@
 
 ## 🥸 管理命令 <a href="#admincommands" id="admincommands"></a>
 
-* [ECOAdmin（经济系统管理）](admincommands/ecoadmin.md)
+* [ECOAdmin（经济管理）](admincommands/ecoadmin.md)
 * [MarketAdmin（市场/任务管理）](admincommands/marketadmin.md)
 * [PassAdmin（通行证管理）](admincommands/passadmin.md)
 * [Punishment（惩罚）](admincommands/punishment.md)
-* [TaskAdmin（任务命令）](admincommands/taskadmin.md)
+* [TaskAdmin（任务管理）](admincommands/taskadmin.md)
 
 ## 🖥️ 系统 <a href="#system" id="system"></a>
 
