@@ -7,3 +7,6 @@
 - tag: quan-xian-xin-xi
   label: 权限信息
   color: purple
+- tag: guan-li-ming-ling
+  label: 管理命令
+  color: orange

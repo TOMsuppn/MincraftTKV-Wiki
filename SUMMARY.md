@@ -12,11 +12,11 @@
 * [Mprogress（进度系统）](players/mprogress.md)
 * [Mstats（战绩查询）](players/mstats.md)
 
+## 🥸 管理命令 <a href="#admincommands" id="admincommands"></a>
+
+* [Page 1](admincommands/page-1.md)
+
 ## 🖥️ 系统 <a href="#system" id="system"></a>
 
 * [藏身处](cang-shen-chu.md)
 * [撤离点](che-li-dian.md)
-
-## 🎓 权限
-
-* [Page 1](quan-xian/page-1.md)
