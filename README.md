@@ -1,21 +1,88 @@
-# 😎 关于MinecraftTarkov
+---
+description: MinecraftTKV 初次上手教程
+cover: .gitbook/assets/jc.png
+coverY: 86.466065747614
+coverHeight: 423
+---
 
-**MinecraftTKV**是一款致力于为我的世界开发**搜打撤玩法**的服务器插件。
+# 💡 首次使用 MinecraftTKV
 
-它基于**SpigotAPI**开发兼容<kbd>**Paper、Spigot、Bukkit、Purpur、Mohist、Youer、ArcLight**</kbd> 等众多主流服务器核心。
+{% hint style="info" %}
+我们制作了一个视频教程 [**->点击查看<-**](https://www.bilibili.com/video/BV1wjZtBbEqW/)
+{% endhint %}
 
-目前支持**1.21.X与1.20.X版本，模组混合端在支持范围内**。
+{% stepper %}
+{% step %}
+### **服务器核心**安装
+
+我们推荐使用 **Paper1.21.8** 版本加载此插件
+
+首先前往 [**官网**](https://papermc.io) 下载最新核心
+
+随后**运行**服务器,填写**协议**
+
+这样服务器便已启动成功
+
+<figure><img src=".gitbook/assets/Screenshot 2026-02-18 at 19.56.22.png" alt=""><figcaption></figcaption></figure>
+{% endstep %}
+
+{% step %}
+### 插件初始化
+
+将 **MinecraftTKV**插件 放入**plugins**文件夹，随后运行服务器
+
+插件会报错，这时关闭服务器并在**config**文件中填写您的**License**
+
+再次运行服务器，插件**正常运行**
+
+<figure><img src=".gitbook/assets/Screenshot 2026-02-18 at 19.57.49.png" alt="配置文件" width="375"><figcaption></figcaption></figure>
+{% endstep %}
+
+{% step %}
+### 地图文件设置
+
+打开服务器根目录下的 **MTKV** 文件夹，随后在 **maps** 文件夹下放入你已准备好的地图文件
+
+{% hint style="info" %}
+注意：请勿使用中文或特殊符号作为地图名
+{% endhint %}
+
+启动服务器，便已完成地图设置
+{% endstep %}
+
+{% step %}
+### 物资箱设置
+
+在**拥有OP**的情况下运行 <kbd>**/mtkv get loot**</kbd> 指令
+
+放置箱子后，**蹲下右键点击**打开编辑界面
+
+将所需要加入的物品拖**拽至内部**，根据提示调整**概率和刷新数**
+
+设置完成后点击**保存**，这样此编号的物资箱便已设置完成
 
 
 
-查看使用教程？点击下方跳转：
+<figure><img src=".gitbook/assets/Screenshot 2026-02-18 at 20.03.09.png" alt="" width="563"><figcaption></figcaption></figure>
+{% endstep %}
 
-{% content-ref url="https://app.gitbook.com/s/5eqp4KY8HVBhE6DsY4cU/" %}
-[首次使用 MinecraftTKV](https://app.gitbook.com/s/5eqp4KY8HVBhE6DsY4cU/)
-{% endcontent-ref %}
+{% step %}
+### 地图点位设置
 
-查看更新日志？点击下方跳转：
+输入 <kbd>/mtkv setmanager map 地图文件名</kbd> 进入**地图编辑器**
 
-{% content-ref url="https://app.gitbook.com/s/7gr5ldxcONDlQCCYWK4l/" %}
-[更新日志](https://app.gitbook.com/s/7gr5ldxcONDlQCCYWK4l/)
-{% endcontent-ref %}
+根据提示在所需处输入 **命令设置** 点位或者点击 **9号栏位的编辑器** 打开编辑模式即可
+{% endstep %}
+
+{% step %}
+### 如何进入匹配
+
+如何进入匹配
+
+匹配**无需任何权限**，玩家仅需要输入 <kbd>/play + 地图名</kbd> 便可进入匹配队列
+
+**单局人数上限**取决于该**地图玩家出生点数量**
+{% endstep %}
+{% endstepper %}
+
+#### 恭喜🎉，看起来你已经完成了插件的最基础配置！
