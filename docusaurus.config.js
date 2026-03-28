@@ -10,9 +10,9 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
+  title: 'MinecraftTKV Wiki',
+  tagline: 'MinecraftTKV 插件文档与使用指南',
+  favicon: 'img/favicon-books.svg',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -20,15 +20,15 @@ const config = {
   },
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://example.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'tomlol',
+  projectName: 'MinecraftTKV-WIKI',
 
   onBrokenLinks: 'throw',
 
@@ -36,8 +36,8 @@ const config = {
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: 'zh-Hans',
+    locales: ['zh-Hans'],
   },
 
   presets: [
@@ -47,26 +47,9 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          tags: 'tags.yml',
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
+        blog: false,
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -74,32 +57,68 @@ const config = {
     ],
   ],
 
+  plugins: [
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        indexDocs: true,
+        indexBlog: false,
+        indexPages: false,
+        language: ['zh', 'en'],
+        hashed: true,
+        highlightSearchTermsOnTargetPage: true,
+        explicitSearchResultPath: true,
+        searchResultLimits: 8,
+        searchBarShortcut: true,
+        searchBarShortcutHint: true,
+        docsRouteBasePath: ['/docs'],
+      },
+    ],
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      image: 'img/gitbook/jc.png',
       colorMode: {
-        respectPrefersColorScheme: true,
+        defaultMode: 'dark',
+        disableSwitch: true,
+        respectPrefersColorScheme: false,
       },
       navbar: {
-        title: 'My Site',
-        logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
-        },
+        title: 'MinecraftTKV Wiki',
         items: [
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            type: 'search',
             position: 'left',
-            label: 'Tutorial',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
+            type: 'docSidebar',
+            sidebarId: 'wikiSidebar',
+            position: 'left',
+            label: '文档',
+          },
+          {
+            to: '/docs/changelog',
+            label: '更新日志',
+            position: 'left',
+          },
+          {
+            to: '/docs/tags',
+            label: '标签',
+            position: 'left',
+          },
+          {
+            type: 'html',
             position: 'right',
+            value:
+              '<a class="navbar__icon-link github-link" href="https://github.com/TOMsuppn" target="_blank" rel="noopener noreferrer" aria-label="GitHub: TOMsuppn" title="GitHub: TOMsuppn"></a>',
+          },
+          {
+            type: 'html',
+            position: 'right',
+            value:
+              '<a class="navbar__icon-link bilibili-link" href="https://space.bilibili.com/454944513" target="_blank" rel="noopener noreferrer" aria-label="Bilibili: TOMsuppn" title="Bilibili: TOMsuppn"></a>',
           },
         ],
       },
@@ -110,46 +129,46 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
+                label: '首次使用',
                 to: '/docs/intro',
               },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'X',
-                href: 'https://x.com/docusaurus',
+                label: '更新日志',
+                to: '/docs/changelog',
               },
             ],
           },
           {
-            title: 'More',
+            title: 'Commands',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
+                label: '玩家命令',
+                to: '/docs/players/help',
               },
               {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                label: '管理命令',
+                to: '/docs/admin-commands/ecoadmin',
+              },
+            ],
+          },
+          {
+            title: 'Systems',
+            items: [
+              {
+                label: '藏身处',
+                to: '/docs/systems/hideout',
+              },
+              {
+                label: '撤离点',
+                to: '/docs/systems/extraction-points',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} TOMsuppn.`,
       },
       prism: {
-        theme: prismThemes.github,
+        theme: prismThemes.dracula,
         darkTheme: prismThemes.dracula,
       },
     }),

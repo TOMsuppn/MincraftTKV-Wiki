@@ -1,0 +1,29 @@
+wan-jia-ming-ling:
+  label: 玩家命令
+  permalink: /wan-jia-ming-ling
+  description: MinecraftTKV 玩家侧命令与功能文档
+
+guan-li-ming-ling:
+  label: 管理命令
+  permalink: /guan-li-ming-ling
+  description: MinecraftTKV 管理员命令与后台操作文档
+
+xi-tong-xin-xi:
+  label: 系统说明
+  permalink: /xi-tong-xin-xi
+  description: MinecraftTKV 核心系统说明与机制文档
+
+alpha:
+  label: Alpha
+  permalink: /alpha
+  description: Alpha 阶段版本更新记录
+
+pre:
+  label: PreTest
+  permalink: /pre
+  description: 预发布版本与预览内容
+
+hotfix:
+  label: Hotfix
+  permalink: /hotfix
+  description: 热修复与紧急修正记录
