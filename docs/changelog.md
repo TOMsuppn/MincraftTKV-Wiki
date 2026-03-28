@@ -3,17 +3,21 @@ title: "🧾 更新日志"
 description: "新特性、新功能与版本变更记录"
 displayed_sidebar: null
 pageClassName: changelog-page
-tags:
-  - alpha
-  - pre
-  - hotfix
+toc_min_heading_level: 2
+toc_max_heading_level: 2
 ---
 
 # 🧾 更新日志
 
-## MinecraftTKV-P1-Alpha.2-rc1 预发布版
+<div className="release-entry">
+  <aside className="release-tags" aria-label="版本标签">
+    <span className="release-tag release-tag--alpha">Alpha</span>
+    <span className="release-tag release-tag--pre">PreTest</span>
+    <p className="release-date">2026-03-28</p>
+  </aside>
+  <div className="release-content">
 
-发布日期：`2026-03-28`
+## <span className="release-version">MinecraftTKV-P1-Alpha.2-rc1 预发布版</span>
 
 :::warning 更新内容
 - `[+]` 插件启动线程优化，提示启动速度
@@ -30,12 +34,17 @@ tags:
 1. 插件本次更新会自动兼容旧版本配置文件，并备份升级到最新配置文件管理系统，启动时间可能会比以往更长。
 2. 1.20.x 版本现已支持，但藏身处地图文件可能仍有少量新版本方块无法正常显示。
 :::
+  </div>
+</div>
 
----
+<div className="release-entry">
+  <aside className="release-tags" aria-label="版本标签">
+    <span className="release-tag release-tag--alpha">Alpha</span>
+    <p className="release-date">2026-03-03</p>
+  </aside>
+  <div className="release-content">
 
-## MinecraftTKV Alpha.1-rc.2-pre4
-
-发布日期：`2026-03-03`
+## <span className="release-version">MinecraftTKV Alpha.1-rc.2-pre4</span>
 
 :::tip 更新内容
 - `[+]` 新增轻装、信号弹、拉闸撤离点
@@ -55,12 +64,17 @@ tags:
 ![Alpha.1-rc.2-pre4 截图 2](/img/gitbook/ae1569e090fd66e9439b3cf1c4aa61d2.png)
 
 ![Alpha.1-rc.2-pre4 截图 3](/img/gitbook/34487160da877dbef5a14cac33d4f127.png)
+  </div>
+</div>
 
----
+<div className="release-entry">
+  <aside className="release-tags" aria-label="版本标签">
+    <span className="release-tag release-tag--alpha">Alpha</span>
+    <p className="release-date">2026-02-28</p>
+  </aside>
+  <div className="release-content">
 
-## MinecraftTKV Alpha.1-rc.2-pre3
-
-发布日期：`2026-02-28`
+## <span className="release-version">MinecraftTKV Alpha.1-rc.2-pre3</span>
 
 :::tip 更新内容
 - `[~]` 修复物资编辑器中物品卡死 BUG
@@ -71,12 +85,18 @@ tags:
 - `[~]` 修复撤离点对创造 / 旁观玩家生效
 - `[+]` 新增实验功能：PMC-BOT，当功能开启时 PMC 玩家会在战局人数不足时自动补全空位
 :::
+  </div>
+</div>
 
----
+<div className="release-entry">
+  <aside className="release-tags" aria-label="版本标签">
+    <span className="release-tag release-tag--alpha">Alpha</span>
+    <span className="release-tag release-tag--hotfix">Hotfix</span>
+    <p className="release-date">2026-02-23</p>
+  </aside>
+  <div className="release-content">
 
-## MinecraftTKV Alpha.1-rc.2-pre2-hotfix2
-
-发布日期：`2026-02-23`
+## <span className="release-version">MinecraftTKV Alpha.1-rc.2-pre2-hotfix2</span>
 
 :::warning 更新内容
 - `[~]` 修复玩家在藏身处无限制使用 `/play` 命令的 bug
@@ -85,23 +105,34 @@ tags:
 - `[+]` 玩家在藏身处时会获得免疫伤害的效果
 - `[+]` 玩家不能再通过退出游戏的方式脱离战局
 :::
+  </div>
+</div>
 
----
+<div className="release-entry">
+  <aside className="release-tags" aria-label="版本标签">
+    <span className="release-tag release-tag--alpha">Alpha</span>
+    <span className="release-tag release-tag--hotfix">Hotfix</span>
+    <p className="release-date">2026-02-12</p>
+  </aside>
+  <div className="release-content">
 
-## MinecraftTKV Alpha.1-rc.2-pre1-260212
-
-发布日期：`2026-02-12`
+## <span className="release-version">MinecraftTKV Alpha.1-rc.2-pre1-260212</span>
 
 :::warning 更新内容
 - `[+]` 更新藏身处地图文件，加入可存放物品的箱子、工作台等拓展内容
 - `[~]` 优化玩家进入队列的速度
 :::
+  </div>
+</div>
 
----
+<div className="release-entry">
+  <aside className="release-tags" aria-label="版本标签">
+    <span className="release-tag release-tag--alpha">Alpha</span>
+    <p className="release-date">2026-02-07</p>
+  </aside>
+  <div className="release-content">
 
-## MinecraftTKV Alpha.1-rc.2-pre1
-
-发布日期：`2026-02-07`
+## <span className="release-version">MinecraftTKV Alpha.1-rc.2-pre1</span>
 
 :::tip 更新内容
 - `[+]` 多队列系统
@@ -116,12 +147,18 @@ tags:
 - `[-]` 移除旧等待机制
 - `[-]` 移除 `SEARCHING` 进度累积逻辑
 :::
+  </div>
+</div>
 
----
+<div className="release-entry">
+  <aside className="release-tags" aria-label="版本标签">
+    <span className="release-tag release-tag--alpha">Alpha</span>
+    <span className="release-tag release-tag--hotfix">Hotfix</span>
+    <p className="release-date">2026-01-31</p>
+  </aside>
+  <div className="release-content">
 
-## MinecraftTKV Alpha.1-rc.1-fix3
-
-发布日期：`2026-01-31`
+## <span className="release-version">MinecraftTKV Alpha.1-rc.1-fix3</span>
 
 :::warning 更新内容
 - `[~]` 调整 TAB 菜单样式：“MinecraftTKV” 文字黄色扫光速度曲线调整为正弦函数
@@ -134,3 +171,5 @@ tags:
 - `[-]` 移除“正在等待玩家”的 BossBar
 - `[-]` 移除匹配状态提示信息等众多 Debug 信息
 :::
+  </div>
+</div>

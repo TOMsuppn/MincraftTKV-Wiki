@@ -7,10 +7,15 @@ description: "MinecraftTKV 初次上手教程"
 
 ![封面图](/img/gitbook/jc.png)
 
-
-:::info
-我们制作了一个视频教程：[点击查看](https://www.bilibili.com/video/BV1wjZtBbEqW/)
-:::
+<div className="video-embed">
+  <iframe
+    src="https://player.bilibili.com/player.html?isOutside=true&aid=116075031232668&bvid=BV1wjZtBbEqW&cid=36085629686&p=1"
+    title="MinecraftTKV 首次使用视频教程"
+    scrolling="no"
+    frameBorder="0"
+    allowFullScreen
+  />
+</div>
 
 ## 步骤 1
 
