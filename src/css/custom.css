@@ -428,10 +428,13 @@ body {
 }
 
 a[rel='tag'] {
-  background: rgba(255, 138, 61, 0.12);
-  border: 1px solid rgba(255, 173, 118, 0.18);
+  --tag-accent: #ffb06f;
+  --tag-accent-bg: rgba(255, 138, 61, 0.12);
+  --tag-accent-border: rgba(255, 173, 118, 0.18);
+  background: var(--tag-accent-bg);
+  border: 1px solid var(--tag-accent-border);
   border-radius: 999px;
-  color: #ffd6b2;
+  color: var(--tag-accent);
   display: inline-flex;
   gap: 0.45rem;
   padding: 0.32rem 0.72rem;
@@ -443,14 +446,50 @@ a[rel='tag'] {
 }
 
 a[rel='tag']:hover {
-  background: rgba(255, 138, 61, 0.18);
-  border-color: rgba(255, 173, 118, 0.32);
+  background: color-mix(in srgb, var(--tag-accent-bg) 75%, white 6%);
+  border-color: color-mix(in srgb, var(--tag-accent-border) 70%, white 15%);
   color: #fff1df;
   transform: translateY(-1px);
 }
 
 a[rel='tag'] span {
   color: rgba(255, 241, 223, 0.78);
+}
+
+a[rel='tag'][href*='/wan-jia-ming-ling'] {
+  --tag-accent: #ffb46f;
+  --tag-accent-bg: rgba(255, 152, 73, 0.16);
+  --tag-accent-border: rgba(255, 180, 111, 0.24);
+}
+
+a[rel='tag'][href*='/guan-li-ming-ling'] {
+  --tag-accent: #ff8f87;
+  --tag-accent-bg: rgba(255, 111, 97, 0.14);
+  --tag-accent-border: rgba(255, 143, 135, 0.22);
+}
+
+a[rel='tag'][href*='/xi-tong-xin-xi'] {
+  --tag-accent: #8fc0ff;
+  --tag-accent-bg: rgba(111, 163, 255, 0.14);
+  --tag-accent-border: rgba(143, 192, 255, 0.22);
+}
+
+a[rel='tag'][href*='/alpha'] {
+  --tag-accent: #caa1ff;
+  --tag-accent-bg: rgba(167, 120, 255, 0.14);
+  --tag-accent-border: rgba(202, 161, 255, 0.22);
+}
+
+a[rel='tag'][href*='/pre'] {
+  --tag-accent: #ffd36e;
+  --tag-accent-bg: rgba(255, 201, 92, 0.14);
+  --tag-accent-border: rgba(255, 211, 110, 0.22);
+}
+
+a[rel='tag'][href*='/hotfix'] {
+  --tag-accent: #ff8484;
+  --tag-accent-bg: rgba(255, 93, 93, 0.14);
+  --tag-accent-border: rgba(255, 132, 132, 0.22);
 }
 
 .docs-tags-list-page main h1 {
@@ -479,6 +518,139 @@ a[rel='tag'] span {
   gap: 0.8rem;
   margin-top: 2.2rem;
   padding-top: 1rem;
+}
+
+.doc-tag-page {
+  --tag-page-accent: #ffb06f;
+  --tag-page-accent-soft: rgba(255, 138, 61, 0.1);
+  --tag-page-accent-border: rgba(255, 173, 118, 0.18);
+}
+
+.doc-tag-page[data-doc-tag-slug='wan-jia-ming-ling'] {
+  --tag-page-accent: #ffb46f;
+  --tag-page-accent-soft: rgba(255, 152, 73, 0.1);
+  --tag-page-accent-border: rgba(255, 180, 111, 0.2);
+}
+
+.doc-tag-page[data-doc-tag-slug='guan-li-ming-ling'] {
+  --tag-page-accent: #ff8f87;
+  --tag-page-accent-soft: rgba(255, 111, 97, 0.1);
+  --tag-page-accent-border: rgba(255, 143, 135, 0.2);
+}
+
+.doc-tag-page[data-doc-tag-slug='xi-tong-xin-xi'] {
+  --tag-page-accent: #8fc0ff;
+  --tag-page-accent-soft: rgba(111, 163, 255, 0.1);
+  --tag-page-accent-border: rgba(143, 192, 255, 0.2);
+}
+
+.doc-tag-page[data-doc-tag-slug='alpha'] {
+  --tag-page-accent: #caa1ff;
+  --tag-page-accent-soft: rgba(167, 120, 255, 0.1);
+  --tag-page-accent-border: rgba(202, 161, 255, 0.2);
+}
+
+.doc-tag-page[data-doc-tag-slug='pre'] {
+  --tag-page-accent: #ffd36e;
+  --tag-page-accent-soft: rgba(255, 201, 92, 0.1);
+  --tag-page-accent-border: rgba(255, 211, 110, 0.2);
+}
+
+.doc-tag-page[data-doc-tag-slug='hotfix'] {
+  --tag-page-accent: #ff8484;
+  --tag-page-accent-soft: rgba(255, 93, 93, 0.1);
+  --tag-page-accent-border: rgba(255, 132, 132, 0.2);
+}
+
+.doc-tag-page__header {
+  background:
+    linear-gradient(180deg, var(--tag-page-accent-soft), rgba(255, 255, 255, 0.02)),
+    #101116;
+  border: 1px solid var(--tag-page-accent-border);
+  border-radius: 1.2rem;
+  margin-bottom: 1.25rem;
+  padding: 1.2rem 1.25rem;
+}
+
+.doc-tag-page__eyebrow {
+  color: rgba(239, 231, 220, 0.5);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.65rem;
+  text-transform: uppercase;
+}
+
+.doc-tag-page__headline {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-bottom: 0.9rem;
+}
+
+.doc-tag-page__badge,
+.doc-tag-page__count {
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 0.86rem;
+  font-weight: 700;
+  padding: 0.36rem 0.76rem;
+}
+
+.doc-tag-page__badge {
+  background: var(--tag-page-accent-soft);
+  border: 1px solid var(--tag-page-accent-border);
+  color: var(--tag-page-accent);
+}
+
+.doc-tag-page__count {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(239, 231, 220, 0.72);
+}
+
+.doc-tag-page__title {
+  margin-bottom: 0.5rem;
+}
+
+.doc-tag-page__description {
+  color: rgba(239, 231, 220, 0.72);
+  margin-bottom: 0;
+}
+
+.doc-tag-page__list {
+  background: #101116;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.2rem;
+  overflow: hidden;
+}
+
+.doc-tag-result {
+  padding: 1.15rem 1.25rem 1.25rem;
+}
+
+.doc-tag-result + .doc-tag-result {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.doc-tag-result__link {
+  color: #fff8ef;
+  text-decoration: none;
+}
+
+.doc-tag-result__link:hover {
+  color: var(--tag-page-accent);
+}
+
+.doc-tag-result__title {
+  font-size: 1.22rem;
+  margin-bottom: 0.38rem;
+}
+
+.doc-tag-result__description {
+  color: rgba(239, 231, 220, 0.72);
+  margin-bottom: 0;
 }
 
 .theme-doc-markdown table {

@@ -104,11 +104,6 @@ const config = {
             position: 'left',
           },
           {
-            to: '/docs/tags',
-            label: '标签',
-            position: 'left',
-          },
-          {
             type: 'html',
             position: 'right',
             value:
