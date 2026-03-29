@@ -34,6 +34,7 @@
   --ifm-global-shadow-lw: 0 16px 36px rgba(0, 0, 0, 0.18);
   --ifm-global-shadow-md: 0 24px 60px rgba(0, 0, 0, 0.24);
   --docusaurus-highlighted-code-line-bg: rgba(255, 138, 61, 0.12);
+  --code-block-hover-line-bg: rgba(255, 138, 61, 0.08);
   --code-block-bg: linear-gradient(180deg, #14151b 0%, #0f1015 100%);
   --code-block-border: rgba(255, 173, 118, 0.14);
   --code-block-top-glow: rgba(255, 173, 118, 0.08);
@@ -951,7 +952,7 @@ div[class*='codeBlockContent'] {
 .theme-code-block,
 div[class*='codeBlockContainer'] {
   background: transparent;
-  margin-bottom: 1.2rem;
+  margin: 1rem 0 1.2rem;
 }
 
 .theme-code-block pre code,
@@ -962,6 +963,27 @@ pre.prism-code code {
 div[class*='codeBlockContent'] [class*='codeBlockLines'],
 div[class*='codeBlockContent'] .prism-code {
   padding-left: 1.15rem;
+}
+
+div[class*='codeBlockContent'] .token-line {
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+div[class*='codeBlockContent'] .token-line:not([class*='codeLine']) {
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+div[class*='codeBlockContent'] .token-line:hover {
+  background: var(--code-block-hover-line-bg);
+  box-shadow: inset 2px 0 0 rgba(255, 138, 61, 0.55);
+}
+
+div[class*='codeBlockContent'] .token-line:hover [class*='codeLineNumber'] {
+  background: rgba(255, 138, 61, 0.08);
 }
 
 .token.comment,

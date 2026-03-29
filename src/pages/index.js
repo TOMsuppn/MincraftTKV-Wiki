@@ -99,11 +99,13 @@ export default function Home() {
                 <div className={styles.previewBody}>
                   <div className={styles.previewLabel}>{selectedPreview.label}</div>
                   <div className={styles.previewHeading}>{selectedPreview.previewHeading}</div>
-                  {selectedPreview.previewLines.map((line) => (
-                    <p key={line} className={styles.previewDescription}>
-                      {line}
-                    </p>
-                  ))}
+                  <div className={styles.previewDescriptionList}>
+                    {selectedPreview.previewLines.map((line) => (
+                      <p key={line} className={styles.previewDescription}>
+                        {line}
+                      </p>
+                    ))}
+                  </div>
                   <div className={styles.previewCode}>{selectedPreview.previewCode}</div>
                   <Link className={styles.previewCta} to={selectedPreview.to}>
                     打开当前文档

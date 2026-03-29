@@ -196,7 +196,10 @@
 .previewBody {
   display: grid;
   align-content: start;
+  grid-template-rows: auto auto minmax(0, 1fr) auto auto;
   gap: 0.8rem;
+  min-height: 17.25rem;
+  min-width: 0;
   padding: 1.2rem 1.25rem;
 }
 
@@ -208,15 +211,32 @@
 
 .previewHeading {
   color: #fff8ef;
+  display: -webkit-box;
   font-size: 1.65rem;
   font-weight: 700;
   letter-spacing: -0.04em;
+  line-height: 1.15;
+  min-height: calc(1.15em * 2);
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.previewDescriptionList {
+  display: grid;
+  gap: 0.8rem;
+  min-height: 6rem;
 }
 
 .previewDescription {
   color: rgba(239, 231, 220, 0.72);
+  display: -webkit-box;
   line-height: 1.7;
   margin: 0;
+  min-height: calc(1.7em * 2);
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .previewCode {
@@ -230,7 +250,12 @@
     'Liberation Mono', 'Courier New', monospace;
   font-size: 0.9rem;
   height: 3rem;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
   padding: 0 1rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .previewCta {
@@ -466,7 +491,7 @@
   }
 
   .previewPanel {
-    min-height: auto;
+    min-height: 20.5rem;
   }
 
   .previewHeader {
@@ -484,24 +509,24 @@
 
   .previewBody {
     gap: 0.7rem;
+    min-height: 15rem;
     padding: 1rem;
   }
 
   .previewHeading {
     font-size: 1.35rem;
+    min-height: calc(1.15em * 2);
   }
 
   .previewDescription {
     font-size: 0.92rem;
     line-height: 1.6;
+    min-height: calc(1.6em * 2);
   }
 
   .previewCode {
     font-size: 0.84rem;
     height: 2.7rem;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .previewCta {
@@ -549,6 +574,7 @@
   }
 
   .previewBody {
+    min-height: 14.2rem;
     padding: 0.9rem;
   }
 
