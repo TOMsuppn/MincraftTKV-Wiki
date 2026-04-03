@@ -12,7 +12,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const config = {
   title: 'MinecraftTKV Wiki',
   tagline: 'MinecraftTKV 插件文档与使用指南',
-  favicon: 'img/favicon-books.svg',
+  favicon: 'img/favicon-minecrafttkv.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -86,7 +86,11 @@ const config = {
         respectPrefersColorScheme: false,
       },
       navbar: {
-        title: 'MinecraftTKV Wiki',
+        title: '',
+        logo: {
+          alt: 'MinecraftTKV',
+          src: 'img/minecrafttkv-logo-black.png',
+        },
         items: [
           {
             type: 'search',
