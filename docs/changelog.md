@@ -13,6 +13,33 @@ toc_max_heading_level: 2
   <aside className="release-tags" aria-label="版本标签">
     <span className="release-tag release-tag--alpha">Alpha</span>
     <span className="release-tag release-tag--pre">PreTest</span>
+    <p className="release-date">2026-04-04</p>
+  </aside>
+  <div className="release-content">
+
+## <span className="release-version">MinecraftTKV-P2-Alpha.2-rc1 预发布版</span>
+
+:::warning 更新内容
+- `[+]` 新增独立随机撤离点设置项
+- `[~]` 修复点位编辑器翻页键闪烁的问题
+- `[+]` 为点位编辑器翻页键添加判断逻辑，当没有可翻页的选项时会隐藏按键
+- `[~]` 修复跳蚤市场自定义价格无法正常使用的问题
+- `[+]` 添加重置世界选项
+- `[+]` 允许战局开始时设置自定义命令
+- `[~]` 战局世界规则设置将与初始地图强同步
+:::
+
+:::info 注意事项
+1. 插件本次更新会自动兼容旧版本配置文件，并备份升级到最新配置文件管理系统，启动时间可能会比以往更长。
+2. 1.20.x 版本现已支持，但藏身处地图文件可能仍有少量新版本方块无法正常显示。
+:::
+  </div>
+</div>
+
+<div className="release-entry">
+  <aside className="release-tags" aria-label="版本标签">
+    <span className="release-tag release-tag--alpha">Alpha</span>
+    <span className="release-tag release-tag--pre">PreTest</span>
     <p className="release-date">2026-03-28</p>
   </aside>
   <div className="release-content">
