@@ -9,6 +9,46 @@ toc_max_heading_level: 2
 
 # 🧾 更新日志
 
+<div className="release-entry release-entry--featured">
+  <aside className="release-tags" aria-label="版本标签">
+    <span className="release-tag release-tag--alpha">Alpha</span>
+    <p className="release-date">2026-04-11</p>
+  </aside>
+  <div className="release-content">
+
+## <span className="release-version">MinecraftTKV Alpha.2-rc2</span>
+
+<div className="release-raw-list" aria-label="Alpha.2-rc2 更新日志">
+  <p className="release-raw-line">{'[+] 插件启动线程优化，提示启动速度'}</p>
+  <p className="release-raw-line">{'[+] 新增惩罚菜单'}</p>
+  <p className="release-raw-line">{'[+] 新增1.20版本支持'}</p>
+  <p className="release-raw-line">{'[+] 新增战令'}</p>
+  <p className="release-raw-line">{'[+] 新增市场'}</p>
+  <p className="release-raw-line">{'[+] 新增商人，任务'}</p>
+  <p className="release-raw-line">{'[+] 加入更多任务条件,优化任务线形进度'}</p>
+  <p className="release-raw-line">{'[~] 配置文件系统更新第二阶段完成开发'}</p>
+  <p className="release-raw-line">{'[+] 新增独立随机撤离点设置项'}</p>
+  <p className="release-raw-line">{'[~] 修复点位编辑器翻页键闪烁的问题'}</p>
+  <p className="release-raw-line">{'[+] 为点位编辑器翻页键添加判断逻辑，当没有可翻页的选项时会隐藏按键'}</p>
+  <p className="release-raw-line">{'[~] 修复跳蚤市场自定义价格无法正常使用的问题'}</p>
+  <p className="release-raw-line">{'[+] 添加重置世界选项'}</p>
+  <p className="release-raw-line">{'[+] 允许战局开始时设置自定义命令'}</p>
+  <p className="release-raw-line">{'[~] 战局世界规则设置将与初始地图强同步'}</p>
+</div>
+
+<div className="release-raw-list release-raw-list--continued" aria-label="Alpha.2-rc2 追加更新日志">
+  <p className="release-raw-line">{'[+] 新增技能系统'}</p>
+  <p className="release-raw-line">{'[+] 战局内自动隐藏玩家标签'}</p>
+  <p className="release-raw-line">{'[~] 已修复由于未及时清理闸门点旧盔甲架导致卡顿的问题'}</p>
+  <p className="release-raw-line">{'[+] 适配MythicMobs生物生成'}</p>
+  <p className="release-raw-line">{'[~] 优化SkillGUI'}</p>
+  <p className="release-raw-line">{'[+] 新增外部经济插件支持'}</p>
+  <p className="release-raw-line">{'[~] 修复resetWorldOnMatchEnd功能无法正常使用的问题'}</p>
+  <p className="release-raw-line">{'[~] 修复物资箱在特定条件下无法跟随地图状态重置而刷新的问题'}</p>
+</div>
+  </div>
+</div>
+
 <div className="release-entry">
   <aside className="release-tags" aria-label="版本标签">
     <span className="release-tag release-tag--alpha">Alpha</span>
