@@ -379,9 +379,9 @@ body {
 
 .theme-doc-sidebar-container {
   background:
-    radial-gradient(circle at top left, rgba(255, 138, 61, 0.05), transparent 35%),
-    linear-gradient(180deg, #14151b 0%, #0f1015 100%);
-  border-right: 1px solid rgba(255, 138, 61, 0.12);
+    radial-gradient(circle at top left, rgba(255, 138, 61, 0.03), transparent 40%),
+    linear-gradient(180deg, #0f1015 0%, #0a0b0e 100%);
+  border-right: 1px solid rgba(255, 138, 61, 0.2);
   position: relative;
 }
 
@@ -417,30 +417,75 @@ body {
   color: rgba(239, 231, 220, 0.74);
   display: flex;
   gap: 0.75rem;
-  padding: 0.55rem 0.7rem;
+  padding: 0.7rem 0.85rem;
   text-decoration: none;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 0.75rem;
+  position: relative;
+  overflow: hidden;
+  transition:
+    color 200ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease,
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sidebar-quick-link::before {
+  background: linear-gradient(180deg, #ff8a3d, #ff6f12);
+  border-radius: 0 2px 2px 0;
+  bottom: 0;
+  content: '';
+  left: 0;
+  position: absolute;
+  top: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  width: 3px;
+  z-index: 1;
 }
 
 .sidebar-quick-link:hover {
   color: #fff8ef;
   text-decoration: none;
+  background: rgba(255, 138, 61, 0.08);
+  border-color: rgba(255, 138, 61, 0.15);
+  transform: translateX(2px);
+}
+
+.sidebar-quick-link:hover::before {
+  transform: scaleX(1);
 }
 
 .sidebar-quick-icon {
   align-items: center;
-  background: #171821;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 0.65rem;
-  color: rgba(239, 231, 220, 0.82);
+  background: rgba(255, 138, 61, 0.1);
+  border: 1px solid rgba(255, 138, 61, 0.2);
+  border-radius: 0.5rem;
+  color: rgba(255, 138, 61, 0.9);
   display: inline-flex;
   font-size: 0.8rem;
-  height: 1.6rem;
+  height: 1.8rem;
   justify-content: center;
-  width: 1.6rem;
+  width: 1.8rem;
+  flex-shrink: 0;
+  transition: all 200ms ease;
+  position: relative;
+  z-index: 2;
+}
+
+.sidebar-quick-link:hover .sidebar-quick-icon {
+  background: rgba(255, 138, 61, 0.15);
+  border-color: rgba(255, 138, 61, 0.35);
+  color: #ff8a3d;
+  box-shadow: 0 0 12px rgba(255, 138, 61, 0.3);
 }
 
 .sidebar-quick-label {
   font-size: 0.95rem;
+  position: relative;
+  z-index: 2;
 }
 
 .theme-doc-sidebar-item-category {
@@ -474,11 +519,23 @@ body {
 }
 
 .menu__link--active {
-  background: rgba(255, 138, 61, 0.12);
-  border: 1px solid rgba(255, 138, 61, 0.12);
+  background: rgba(255, 138, 61, 0.1);
+  border: 1px solid rgba(255, 138, 61, 0.2);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
   color: #ffad76;
   font-weight: 600;
+  position: relative;
+}
+
+.menu__link--active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #ff8a3d, #ff6f12);
+  border-radius: 0 2px 2px 0;
 }
 
 .menu__caret:before,
@@ -1046,8 +1103,11 @@ a[rel='tag'][href*='/hotfix'] {
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.03);
-  position: relative;
+  position: sticky;
+  top: calc(var(--ifm-navbar-height) + 1.5rem);
   overflow: hidden;
+  max-height: calc(100vh - var(--ifm-navbar-height) - 3rem);
+  overflow-y: auto;
 }
 
 .table-of-contents::before {
@@ -1140,147 +1200,109 @@ a[rel='tag'][href*='/hotfix'] {
   }
 }
 
+/* ========================================
+   代码块样式 - 简洁版
+   ======================================== */
+
+/* 行内代码 */
 code {
-  background: linear-gradient(135deg, rgba(255, 138, 61, 0.08), rgba(255, 138, 61, 0.04));
-  border: 1px solid rgba(255, 138, 61, 0.22);
-  border-radius: 0.4rem;
-  color: #ffb37f;
-  font-size: 0.92em;
+  background: rgba(20, 21, 27, 0.6);
+  border: 1px solid rgba(255, 138, 61, 0.25);
+  border-radius: 0.35rem;
+  color: #ffa366;
+  font-size: 0.9em;
   font-weight: 500;
-  padding: 0.2rem 0.55rem;
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 138, 61, 0.1);
+  padding: 0.18rem 0.5rem;
 }
 
+/* 代码块容器 */
 pre {
-  background:
-    radial-gradient(circle at top right, rgba(255, 138, 61, 0.04), transparent 40%),
-    linear-gradient(180deg, #14151b 0%, #0f1015 100%);
-  border: 1px solid rgba(255, 138, 61, 0.18);
-  border-radius: 0.85rem;
+  background: #0d0e12;
+  border: 1px solid rgba(255, 138, 61, 0.25);
+  border-radius: 0.5rem;
   box-shadow:
-    inset 0 1px 0 rgba(255, 173, 118, 0.1),
-    0 20px 50px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(255, 138, 61, 0.06);
-  margin: 1.2rem 0 1.5rem;
+    0 0 0 1px rgba(255, 138, 61, 0.1),
+    0 12px 40px rgba(0, 0, 0, 0.7);
+  margin: 1.5rem 0;
   overflow: hidden;
   position: relative;
-}
-
-/* 代码块顶部装饰条 */
-pre::before {
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(255, 138, 61, 0.25) 20%,
-    rgba(255, 138, 61, 0.35) 50%,
-    rgba(255, 138, 61, 0.25) 80%,
-    transparent 100%);
-  content: '';
-  height: 1px;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  box-shadow: 0 1px 8px rgba(255, 138, 61, 0.2);
-}
-
-/* 代码块网格背景 */
-pre::after {
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px) 0 0 / 20px 20px,
-    linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px) 0 0 / 20px 20px;
-  content: '';
-  inset: 0;
-  opacity: 0.3;
-  pointer-events: none;
-  position: absolute;
-  z-index: 0;
 }
 
 pre code {
   background: transparent;
   border: none;
-  box-shadow: none;
-  color: inherit;
+  color: #e8dfd0;
   padding: 0;
-  position: relative;
-  z-index: 1;
 }
 
 pre[class*='language-'],
 .theme-code-block pre,
 div[class*='codeBlockContainer'] pre,
 pre.prism-code {
-  background:
-    radial-gradient(circle at top right, rgba(255, 138, 61, 0.04), transparent 40%),
-    linear-gradient(180deg, #14151b 0%, #0f1015 100%) !important;
+  background: #0d0e12 !important;
+  padding-top: 3rem !important;
+}
+
+div[class*='codeBlockContainer'] {
+  background: transparent;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+div[class*='codeBlockContainer']::before {
+  content: '// TERMINAL';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 138, 61, 0.08);
+  border-bottom: 1px solid rgba(255, 138, 61, 0.2);
+  color: rgba(255, 138, 61, 0.6);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  z-index: 10;
+  border-radius: 0.5rem 0.5rem 0 0;
 }
 
 div[class*='codeBlockContent'] {
-  --ifm-pre-padding: 1.25rem;
-}
-
-.theme-code-block,
-div[class*='codeBlockContainer'] {
-  background: transparent;
-  margin: 1.2rem 0 1.5rem;
+  --ifm-pre-padding: 1.2rem;
+  padding-top: 2.5rem !important;
 }
 
 .theme-code-block pre code,
 pre.prism-code code {
-  color: #f4ecde;
-  font-size: 0.92em;
-  line-height: 1.65;
+  color: #e8dfd0;
+  font-size: 0.9em;
+  line-height: 1.7;
 }
 
 div[class*='codeBlockContent'] [class*='codeBlockLines'],
 div[class*='codeBlockContent'] .prism-code {
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding: 1.2rem;
 }
 
+/* 代码行样式 */
 div[class*='codeBlockContent'] .token-line {
-  border-left: 2px solid transparent;
-  margin-left: -2px;
-  transition:
-    background-color 180ms cubic-bezier(0.4, 0, 0.2, 1),
-    border-color 180ms cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 180ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-div[class*='codeBlockContent'] .token-line:not([class*='codeLine']) {
-  display: block;
-  margin: 0 calc(-1 * var(--ifm-pre-padding));
-  padding: 0 var(--ifm-pre-padding);
+  transition: all 200ms ease;
 }
 
 div[class*='codeBlockContent'] .token-line:hover {
-  background: linear-gradient(90deg,
-    rgba(255, 138, 61, 0.08) 0%,
-    rgba(255, 138, 61, 0.04) 100%);
-  border-left-color: rgba(255, 138, 61, 0.7);
-  box-shadow:
-    inset 2px 0 0 rgba(255, 138, 61, 0.5),
-    0 0 15px rgba(255, 138, 61, 0.08);
+  background: rgba(255, 138, 61, 0.05);
 }
 
-div[class*='codeBlockContent'] .token-line:hover [class*='codeLineNumber'] {
-  background: rgba(255, 138, 61, 0.12);
-  color: #ff9652;
-}
-
+/* 语法高亮颜色 - 橙色主题 */
 .token.comment,
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: rgba(239, 231, 220, 0.42);
+  color: rgba(239, 231, 220, 0.35);
+  font-style: italic;
 }
 
 .token.punctuation {
-  color: rgba(239, 231, 220, 0.72);
+  color: rgba(239, 231, 220, 0.6);
 }
 
 .token.property,
@@ -1290,7 +1312,7 @@ div[class*='codeBlockContent'] .token-line:hover [class*='codeLineNumber'] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: #ffb37f;
+  color: #ff9652;
 }
 
 .token.selector,
@@ -1299,7 +1321,7 @@ div[class*='codeBlockContent'] .token-line:hover [class*='codeLineNumber'] {
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: #ffd4a8;
+  color: #ffa366;
 }
 
 .token.operator,
@@ -1307,24 +1329,24 @@ div[class*='codeBlockContent'] .token-line:hover [class*='codeLineNumber'] {
 .token.url,
 .language-css .token.string,
 .style .token.string {
-  color: #f2be8a;
+  color: #ffb37f;
 }
 
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-  color: #ff9652;
+  color: #ff8a3d;
 }
 
 .token.function,
 .token.class-name {
-  color: #ffe4c6;
+  color: #ffc58d;
 }
 
 .token.regex,
 .token.important,
 .token.variable {
-  color: #ffc58d;
+  color: #ffd4a8;
 }
 
 .token.namespace {
@@ -1333,11 +1355,12 @@ div[class*='codeBlockContent'] .token-line:hover [class*='codeLineNumber'] {
 
 .theme-code-block-highlighted-line,
 .token-line[style*='var(--docusaurus-highlighted-code-line-bg)'] {
-  border-left: 2px solid rgba(255, 138, 61, 0.65);
+  background: rgba(255, 138, 61, 0.08);
 }
 
+/* 行号 */
 div[class*='codeBlockLineNumber'] {
-  color: rgba(239, 231, 220, 0.25);
+  color: rgba(239, 231, 220, 0.2);
   font-weight: 500;
   min-width: 2.5rem;
   padding-right: 1rem;
@@ -1345,26 +1368,26 @@ div[class*='codeBlockLineNumber'] {
   user-select: none;
 }
 
+div[class*='codeBlockContent'] .token-line:hover [class*='codeBlockLineNumber'] {
+  color: rgba(255, 138, 61, 0.5);
+}
+
+/* 复制按钮 */
 button[class*='copyButton'] {
-  background: linear-gradient(135deg, rgba(255, 138, 61, 0.08), rgba(255, 138, 61, 0.04));
+  background: rgba(255, 138, 61, 0.08);
   border: 1px solid rgba(255, 138, 61, 0.2);
-  border-radius: 0.5rem;
-  color: rgba(239, 231, 220, 0.8);
+  border-radius: 0.4rem;
+  color: rgba(239, 231, 220, 0.7);
   font-size: 0.85rem;
-  padding: 0.45rem 0.85rem;
-  transition:
-    background 200ms ease,
-    border-color 200ms ease,
-    color 200ms ease,
-    transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0.4rem 0.8rem;
+  transition: all 200ms ease;
 }
 
 button[class*='copyButton']:hover {
-  background: linear-gradient(135deg, rgba(255, 138, 61, 0.15), rgba(255, 138, 61, 0.08));
-  border-color: rgba(255, 138, 61, 0.35);
-  color: #fff4e6;
+  background: rgba(255, 138, 61, 0.15);
+  border-color: rgba(255, 138, 61, 0.4);
+  color: #fff8ef;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255, 138, 61, 0.15);
 }
 
 button[class*='copyButton']:active {
@@ -2232,67 +2255,6 @@ img {
 .theme-doc-markdown a:not(.card):not(.button):hover {
   background-size: 100% 1.5px;
   text-decoration: none;
-}
-
-/* 代码块 macOS 风格点 + 顶部光晕 */
-[class*='codeBlockContainer'] {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(255, 173, 118, 0.18) !important;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35),
-              inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  transition: box-shadow 320ms ease, border-color 320ms ease;
-}
-
-[class*='codeBlockContainer']:hover {
-  border-color: rgba(255, 173, 118, 0.35) !important;
-  box-shadow: 0 20px 56px rgba(0, 0, 0, 0.5),
-              0 0 0 1px rgba(255, 138, 61, 0.18),
-              inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-[class*='codeBlockContainer']::before {
-  background:
-    radial-gradient(circle 5px at 16px 50%, #ff5f57 98%, transparent 100%),
-    radial-gradient(circle 5px at 36px 50%, #febc2e 98%, transparent 100%),
-    radial-gradient(circle 5px at 56px 50%, #28c840 98%, transparent 100%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  content: '// TERMINAL';
-  color: rgba(255, 138, 61, 0.7);
-  display: block;
-  font-family: ui-monospace, monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  height: 28px;
-  line-height: 28px;
-  padding-left: 80px;
-  background-color: rgba(0, 0, 0, 0.35);
-  position: relative;
-  z-index: 1;
-}
-
-[class*='codeBlockContainer'] [class*='codeBlockContent'] {
-  padding-top: 0.4rem;
-}
-
-/* 顶部扫描光线 */
-[class*='codeBlockContainer']::after {
-  background: linear-gradient(90deg, transparent, rgba(255, 138, 61, 0.7), transparent);
-  content: '';
-  height: 1px;
-  left: -50%;
-  position: absolute;
-  top: 28px;
-  width: 50%;
-  pointer-events: none;
-  animation: codeScan 5s linear infinite;
-}
-
-@keyframes codeScan {
-  0% { left: -50%; opacity: 0; }
-  20% { opacity: 0.6; }
-  80% { opacity: 0.6; }
-  100% { left: 100%; opacity: 0; }
 }
 
 /* 表格 hover 行高亮 */
@@ -3278,14 +3240,14 @@ header[class*='heroBanner'] {
 /* 文档内容区域添加战术装饰 */
 .docMainContainer {
   position: relative;
-  padding-top: calc(var(--ifm-navbar-height) + 1.5rem);
+  padding-top: calc(var(--ifm-navbar-height) + 2.5rem);
 }
 
 /* 文档页面顶部装饰条 */
 .docMainContainer::before {
   content: '';
   position: absolute;
-  top: calc(var(--ifm-navbar-height) + 1rem);
+  top: calc(var(--ifm-navbar-height) + 2rem);
   left: 0;
   right: 0;
   height: 3px;
