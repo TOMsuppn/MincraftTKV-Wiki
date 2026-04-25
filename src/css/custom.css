@@ -1679,6 +1679,43 @@ img {
     gap: 0.55rem;
   }
 
+  /* 侧边栏中的图标链接 */
+  .navbar-sidebar .navbar__icon-link {
+    width: 3rem !important;
+    height: 3rem !important;
+    border-radius: 0.85rem;
+    background: #15161d;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-sidebar .navbar__icon-link::before {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .navbar-sidebar .navbar__icon-link:hover {
+    background: rgba(255, 138, 61, 0.1);
+    border-color: rgba(255, 138, 61, 0.3);
+  }
+
+  /* 侧边栏社交按钮容器 */
+  .navbar-sidebar .navbar__items--right {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+    padding: 0.5rem 0;
+  }
+
+  .navbar-sidebar .navbar__items--right .navbar__icon-link {
+    flex: 0 0 auto;
+  }
+
   .navbar-sidebar .navbar__item {
     display: block;
     padding: 0;
