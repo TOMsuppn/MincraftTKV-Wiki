@@ -2754,6 +2754,7 @@ body::after {
 header[class*='heroBanner'],
 section[class*='statsSection'],
 section[class*='opsSection'],
+section[class*='featuresSection'],
 section[class*='pricingSection'],
 .main-wrapper,
 .theme-doc-main,
