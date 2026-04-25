@@ -32,6 +32,10 @@ const config = {
 
   onBrokenLinks: 'throw',
 
+  stylesheets: [
+    'https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap',
+  ],
+
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
@@ -111,13 +115,25 @@ const config = {
             type: 'html',
             position: 'right',
             value:
-              '<a class="navbar__icon-link github-link" href="https://github.com/TOMsuppn" target="_blank" rel="noopener noreferrer" aria-label="GitHub: TOMsuppn" title="GitHub: TOMsuppn"></a>',
+              '<a class="navbar__icon-link github-link" data-tooltip="GitHub" href="https://github.com/TOMsuppn" target="_blank" rel="noopener noreferrer" aria-label="GitHub: TOMsuppn" title="GitHub: TOMsuppn"></a>',
           },
           {
             type: 'html',
             position: 'right',
             value:
-              '<a class="navbar__icon-link bilibili-link" href="https://space.bilibili.com/454944513" target="_blank" rel="noopener noreferrer" aria-label="Bilibili: TOMsuppn" title="Bilibili: TOMsuppn"></a>',
+              '<a class="navbar__icon-link bilibili-link" data-tooltip="Bilibili" href="https://space.bilibili.com/454944513" target="_blank" rel="noopener noreferrer" aria-label="Bilibili: TOMsuppn" title="Bilibili: TOMsuppn"></a>',
+          },
+          {
+            type: 'html',
+            position: 'right',
+            value:
+              '<a class="navbar__icon-link kook-link" data-tooltip="加入 KOOK 频道" href="https://kook.vip/A33qtO" target="_blank" rel="noopener noreferrer" aria-label="加入 KOOK 频道" title="加入 KOOK 频道"></a>',
+          },
+          {
+            type: 'html',
+            position: 'right',
+            value:
+              '<a class="navbar__icon-link qq-link" data-tooltip="加入 QQ 群" href="https://qm.qq.com/q/7djmYBJiMM" target="_blank" rel="noopener noreferrer" aria-label="加入 QQ 群" title="加入 QQ 群"></a>',
           },
         ],
       },
