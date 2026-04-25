@@ -61,6 +61,16 @@ const Brackets = () => (
 const FeatureCard = ({title, images}) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const handlePrev = (e) => {
+    e.stopPropagation();
+    setActiveIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const handleNext = (e) => {
+    e.stopPropagation();
+    setActiveIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
   return (
     <div className={styles.featureCard}>
       <Brackets />
@@ -73,12 +83,33 @@ const FeatureCard = ({title, images}) => {
               '--stack-index': idx,
               '--stack-total': images.length,
             }}
-            onClick={() => setActiveIndex(idx)}
-            onMouseEnter={() => images.length > 1 && setActiveIndex(idx)}
           >
             <img src={img} alt={`${title} ${idx + 1}`} loading="lazy" />
           </div>
         ))}
+        {images.length > 1 && (
+          <>
+            <button
+              type="button"
+              className={styles.featureNavButton + ' ' + styles.featureNavPrev}
+              onClick={handlePrev}
+              aria-label="上一张图片"
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              className={styles.featureNavButton + ' ' + styles.featureNavNext}
+              onClick={handleNext}
+              aria-label="下一张图片"
+            >
+              ›
+            </button>
+            <div className={styles.featureCounter}>
+              {activeIndex + 1} / {images.length}
+            </div>
+          </>
+        )}
       </div>
       <div className={styles.featureTitle}>{title}</div>
       {images.length > 1 && (
