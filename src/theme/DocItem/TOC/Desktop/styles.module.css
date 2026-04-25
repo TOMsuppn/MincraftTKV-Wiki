@@ -1,0 +1,20 @@
+.tableOfContentsDesktop {
+  display: block !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  overflow-y: visible !important;
+  position: static !important;
+}
+
+.tableOfContentsDesktop :global(.table-of-contents) {
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  overflow-y: visible !important;
+}
+
+.tableOfContentsDesktop :global(.table-of-contents ul) {
+  max-height: none !important;
+  overflow: visible !important;
+}

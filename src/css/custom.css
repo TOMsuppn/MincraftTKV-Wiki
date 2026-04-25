@@ -382,7 +382,8 @@ body {
     radial-gradient(circle at top left, rgba(255, 138, 61, 0.03), transparent 40%),
     linear-gradient(180deg, #0f1015 0%, #0a0b0e 100%);
   border-right: 1px solid rgba(255, 138, 61, 0.2);
-  position: relative;
+  position: sticky;
+  overflow: hidden;
 }
 
 /* 桌面端侧边栏网格背景 */
@@ -396,6 +397,27 @@ body {
   pointer-events: none;
   opacity: 0.6;
   z-index: 0;
+}
+
+/* 滚动边缘渐变遮罩 */
+.theme-doc-sidebar-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    linear-gradient(180deg,
+      rgba(15, 16, 21, 1) 0%,
+      transparent 2.5rem
+    ),
+    linear-gradient(0deg,
+      rgba(10, 11, 14, 1) 0%,
+      transparent 2.5rem
+    );
+  pointer-events: none;
+  z-index: 2;
 }
 
 .theme-doc-sidebar-menu {
@@ -1105,9 +1127,8 @@ a[rel='tag'][href*='/hotfix'] {
     inset 0 1px 0 rgba(255, 255, 255, 0.03);
   position: sticky;
   top: calc(var(--ifm-navbar-height) + 1.5rem);
-  overflow: hidden;
-  max-height: calc(100vh - var(--ifm-navbar-height) - 3rem);
-  overflow-y: auto;
+  overflow: visible;
+  max-height: none;
 }
 
 .table-of-contents::before {
@@ -2016,6 +2037,7 @@ img {
   .theme-code-block pre,
   div[class*='codeBlockContainer'] pre,
   pre.prism-code {
+    border-radius: 0;
     font-size: 0.88rem;
   }
 
@@ -2752,6 +2774,7 @@ img {
   border-left: 1px solid rgba(255, 255, 255, 0.06);
   position: relative;
 }
+
 .table-of-contents::before {
   background: linear-gradient(180deg, transparent, rgba(255, 138, 61, 0.45), transparent);
   content: '';
@@ -3338,6 +3361,20 @@ header[class*='heroBanner'] {
   position: relative;
   padding-bottom: 1rem;
   margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateY(0.55em);
+  filter: blur(12px);
+  animation: docTitleBlurUp 720ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 120ms;
+  will-change: transform, opacity, filter;
+}
+
+@keyframes docTitleBlurUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
 }
 
 .theme-doc-markdown h1::after {
@@ -3606,5 +3643,245 @@ header[class*='heroBanner'] {
 
   .docMainContainer::before {
     height: 2px;
+  }
+}
+
+/* =========================================================
+   当前布局修正：dock 避让 / 左侧目录按钮统一为主菜单棱角风格
+   ========================================================= */
+:root {
+  --dock-doc-clearance: 7.9rem;
+  --dock-sticky-clearance: 6.75rem;
+  --menu-corner-cut: 10px;
+}
+
+.navbar.navbar--fixed-top {
+  z-index: 1000;
+}
+
+[class*='docMainContainer'] {
+  padding-top: var(--dock-doc-clearance) !important;
+  position: relative;
+}
+
+[class*='docMainContainer']::before {
+  top: calc(var(--dock-doc-clearance) - 0.65rem) !important;
+}
+
+.theme-doc-sidebar-container {
+  height: calc(100vh - var(--dock-sticky-clearance)) !important;
+  max-height: calc(100vh - var(--dock-sticky-clearance)) !important;
+  top: var(--dock-sticky-clearance) !important;
+}
+
+.table-of-contents {
+  max-height: none !important;
+  top: var(--dock-sticky-clearance) !important;
+}
+
+.theme-doc-breadcrumbs,
+[class*='tocCollapsible'] {
+  scroll-margin-top: calc(var(--dock-sticky-clearance) + 1rem);
+}
+
+.theme-doc-markdown h1,
+.theme-doc-markdown h2,
+.theme-doc-markdown h3,
+.theme-doc-markdown h4 {
+  scroll-margin-top: calc(var(--dock-sticky-clearance) + 1rem) !important;
+}
+
+.theme-doc-sidebar-container .menu__link,
+.theme-doc-sidebar-container .menu__caret,
+.navbar-sidebar .menu__link,
+.navbar-sidebar .menu__caret,
+.sidebar-quick-link {
+  border-radius: 0 !important;
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--menu-corner-cut)) 0,
+    100% var(--menu-corner-cut),
+    100% 100%,
+    var(--menu-corner-cut) 100%,
+    0 calc(100% - var(--menu-corner-cut))
+  );
+}
+
+.theme-doc-sidebar-container .menu__list-item-collapsible,
+.navbar-sidebar .menu__list-item-collapsible,
+.sidebar-quick-icon {
+  border-radius: 4px !important;
+}
+
+@media (max-width: 996px) {
+  :root {
+    --dock-doc-clearance: 6.4rem;
+    --dock-sticky-clearance: 5.75rem;
+    --menu-corner-cut: 8px;
+  }
+
+  [class*='docMainContainer'] {
+    padding-top: var(--dock-doc-clearance) !important;
+  }
+
+  [class*='docMainContainer']::before {
+    top: calc(var(--dock-doc-clearance) - 0.45rem) !important;
+  }
+
+  [class*='tocCollapsible'] {
+    margin-top: 0.65rem !important;
+  }
+
+  .navbar__items--left > .navbar__link {
+    display: none !important;
+  }
+
+  .navbar__items--left {
+    flex: 1 1 auto !important;
+    overflow: visible !important;
+  }
+
+  .navbar__search {
+    max-width: clamp(8rem, 42vw, 11rem);
+  }
+
+  .navbar__search-input {
+    min-width: 0 !important;
+    width: clamp(8rem, 42vw, 11rem) !important;
+  }
+}
+
+/* Final TOC layout guard: keep the right desktop TOC visible until mobile size. */
+@media (min-width: 769px) {
+  .doc-layout-row {
+    align-items: flex-start !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .doc-layout-row > .doc-content-column {
+    flex: 1 1 auto !important;
+    max-width: calc(100% - 18.7rem) !important;
+    min-width: 0 !important;
+  }
+
+  .doc-toc-column {
+    display: block !important;
+    flex: 0 0 17rem !important;
+    height: auto !important;
+    max-width: 17rem !important;
+    max-height: none !important;
+    min-width: 17rem !important;
+    overflow: visible !important;
+    position: sticky !important;
+    top: var(--dock-sticky-clearance) !important;
+    width: 17rem !important;
+  }
+
+  .doc-toc-column [class*='tableOfContents'],
+  .doc-toc-column .theme-doc-toc-desktop {
+    display: block !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    overflow-y: visible !important;
+    position: static !important;
+    top: auto !important;
+    visibility: visible !important;
+    width: 100% !important;
+  }
+
+  .doc-toc-column .table-of-contents {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    overflow-y: visible !important;
+    padding: 0.85rem 0.85rem !important;
+    position: relative !important;
+    top: auto !important;
+  }
+
+  .doc-toc-column .table-of-contents ul {
+    margin: 0.12rem 0 0.32rem !important;
+    padding-left: 0.7rem !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .doc-toc-column .table-of-contents li {
+    margin: 0 !important;
+  }
+
+  .doc-toc-column .table-of-contents__link {
+    font-size: 0.84rem;
+    line-height: 1.25;
+    padding: 0.28rem 0.62rem;
+  }
+
+  .doc-toc-column .table-of-contents__link:hover {
+    padding-left: 0.82rem;
+  }
+
+  .doc-toc-column [class*='tableOfContents'] {
+    position: sticky !important;
+    right: max(1.25rem, calc((100vw - 1380px) / 2 + 1rem)) !important;
+    top: var(--dock-sticky-clearance) !important;
+    width: clamp(14.5rem, 17vw, 17rem) !important;
+    z-index: 30;
+  }
+
+  .doc-toc-column .table-of-contents {
+    max-height: none !important;
+    overflow-y: visible !important;
+  }
+
+  .theme-doc-toc-mobile,
+  [class*='tocMobile'] {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 996px) {
+  .doc-layout-row {
+    column-gap: 1.25rem !important;
+  }
+
+  .doc-layout-row > .doc-content-column {
+    max-width: calc(100% - 16.25rem) !important;
+  }
+
+  .doc-toc-column {
+    flex-basis: 15rem !important;
+    max-width: 15rem !important;
+    min-width: 15rem !important;
+    width: 15rem !important;
+  }
+}
+
+@media (min-width: 997px) and (max-height: 820px) {
+  .doc-toc-column [class*='tableOfContents'] {
+    top: var(--dock-sticky-clearance) !important;
+    width: clamp(14rem, 16vw, 16rem) !important;
+  }
+
+  .doc-toc-column .table-of-contents {
+    max-height: none !important;
+    overflow-y: visible !important;
+    padding: 0.66rem 0.7rem !important;
+  }
+
+  .doc-toc-column .table-of-contents ul {
+    margin: 0.06rem 0 0.2rem !important;
+    padding-left: 0.48rem !important;
+  }
+
+  .doc-toc-column .table-of-contents__link {
+    font-size: 0.78rem;
+    line-height: 1.16;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .doc-toc-column .table-of-contents__link:hover {
+    padding-left: 0.68rem;
   }
 }

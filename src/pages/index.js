@@ -481,13 +481,11 @@ export default function Home() {
 
               <div className={styles.priceArea}>
                 <div className={styles.pricingRow}>
-                  <div className={styles.priceTag}>
-                    <span className={styles.currency}>¥</span>
-                    <span className={`${styles.price} ${styles.priceRoll}`}>850</span>
-                    <span className={styles.period}>买断</span>
+                  <div className={`${styles.priceTag} ${styles.priceTagPlaceholder}`}>
+                    <span className={styles.pricePlaceholder}>定价暂未开放</span>
                   </div>
                 </div>
-                <div className={styles.accessLabel}>永久授权 · 无月费</div>
+                <div className={styles.accessLabel}>价格与购买入口暂不显示</div>
               </div>
 
               <div className={styles.durationSlot}>
@@ -505,8 +503,11 @@ export default function Home() {
                 <li>永久免费版本更新</li>
               </ul>
 
-              <button type="button" className={`${styles.buyButton} ${styles.buyButtonMax}`} onClick={noop}>
-                立即购买 MAX · ¥850 ↗
+              <button
+                type="button"
+                className={`${styles.buyButton} ${styles.buyButtonMax} ${styles.buyButtonPlaceholder}`}
+                disabled>
+                MAX 暂未开放 · COMING SOON
               </button>
             </div>
           </div>
