@@ -34,15 +34,15 @@
   --ifm-border-color: rgba(255, 255, 255, 0.08);
   --ifm-toc-border-color: rgba(255, 255, 255, 0.08);
   --ifm-code-background: rgba(255, 255, 255, 0.05);
-  --ifm-pre-background: #111217;
+  --ifm-pre-background: #050805;
   --ifm-link-hover-decoration: none;
   --ifm-global-shadow-lw: 0 16px 36px rgba(0, 0, 0, 0.18);
   --ifm-global-shadow-md: 0 24px 60px rgba(0, 0, 0, 0.24);
-  --docusaurus-highlighted-code-line-bg: rgba(255, 138, 61, 0.12);
-  --code-block-hover-line-bg: rgba(255, 138, 61, 0.08);
-  --code-block-bg: linear-gradient(180deg, #14151b 0%, #0f1015 100%);
-  --code-block-border: rgba(255, 173, 118, 0.14);
-  --code-block-top-glow: rgba(255, 173, 118, 0.08);
+  --docusaurus-highlighted-code-line-bg: rgba(184, 95, 43, 0.22);
+  --code-block-hover-line-bg: rgba(184, 95, 43, 0.16);
+  --code-block-bg: #050805;
+  --code-block-border: rgba(239, 138, 70, 0.24);
+  --code-block-top-glow: rgba(239, 138, 70, 0.68);
   --ifm-pre-padding: 1.15rem;
   --doc-sidebar-width: 286px;
   --ifm-navbar-height: 60px;
@@ -1201,7 +1201,7 @@ a[rel='tag'][href*='/hotfix'] {
 }
 
 /* ========================================
-   代码块样式 - 简洁版
+   代码块样式 - 终端版
    ======================================== */
 
 /* 行内代码 */
@@ -1217,12 +1217,14 @@ code {
 
 /* 代码块容器 */
 pre {
-  background: #0d0e12;
-  border: 1px solid rgba(255, 138, 61, 0.25);
-  border-radius: 0.5rem;
-  box-shadow:
-    0 0 0 1px rgba(255, 138, 61, 0.1),
-    0 12px 40px rgba(0, 0, 0, 0.7);
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.016) 1px, transparent 1px),
+    var(--code-block-bg);
+  background-size: 44px 44px, 44px 44px, auto;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
   margin: 1.5rem 0;
   overflow: hidden;
   position: relative;
@@ -1239,36 +1241,67 @@ pre[class*='language-'],
 .theme-code-block pre,
 div[class*='codeBlockContainer'] pre,
 pre.prism-code {
-  background: #0d0e12 !important;
-  padding-top: 3rem !important;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.016) 1px, transparent 1px),
+    var(--code-block-bg) !important;
+  background-size: 44px 44px, 44px 44px, auto !important;
+  padding-top: 0 !important;
 }
 
 div[class*='codeBlockContainer'] {
-  background: transparent;
+  background: var(--code-block-bg);
+  border: 1px solid var(--code-block-border);
+  border-radius: 0.18rem;
+  box-shadow:
+    0 22px 48px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.025);
+  isolation: isolate;
   margin: 1.5rem 0;
+  overflow: hidden;
   position: relative;
 }
 
 div[class*='codeBlockContainer']::before {
   content: '// TERMINAL';
+  align-items: center;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  padding: 0.5rem 1rem;
-  background: rgba(255, 138, 61, 0.08);
-  border-bottom: 1px solid rgba(255, 138, 61, 0.2);
-  color: rgba(255, 138, 61, 0.6);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  display: flex;
+  height: 2.75rem;
+  padding: 0 1rem 0 4.15rem;
+  background:
+    linear-gradient(90deg, var(--code-block-top-glow) 0 4rem, transparent 4rem) top left / 100% 2px no-repeat,
+    linear-gradient(180deg, rgba(62, 51, 35, 0.72), rgba(18, 22, 17, 0.92));
+  border-bottom: 1px solid rgba(239, 138, 70, 0.2);
+  color: rgba(239, 138, 70, 0.66);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  line-height: 1;
   z-index: 10;
-  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+div[class*='codeBlockContainer']::after {
+  content: '';
+  position: absolute;
+  top: 1.22rem;
+  left: 1.1rem;
+  width: 0.42rem;
+  height: 0.42rem;
+  background: rgba(224, 123, 63, 0.72);
+  border-radius: 999px;
+  box-shadow:
+    1.05rem 0 0 rgba(224, 123, 63, 0.72),
+    2.1rem 0 0 rgba(224, 123, 63, 0.72);
+  z-index: 11;
 }
 
 div[class*='codeBlockContent'] {
-  --ifm-pre-padding: 1.2rem;
-  padding-top: 2.5rem !important;
+  --ifm-pre-padding: 1.35rem;
+  padding-top: 2.75rem !important;
 }
 
 .theme-code-block pre code,
@@ -1280,16 +1313,21 @@ pre.prism-code code {
 
 div[class*='codeBlockContent'] [class*='codeBlockLines'],
 div[class*='codeBlockContent'] .prism-code {
-  padding: 1.2rem;
+  padding: 1.15rem 1.35rem 1.35rem;
 }
 
 /* 代码行样式 */
 div[class*='codeBlockContent'] .token-line {
-  transition: all 200ms ease;
+  border-left: 2px solid transparent;
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding) 0 calc(var(--ifm-pre-padding) - 2px);
+  transition: background-color 160ms ease, border-color 160ms ease;
 }
 
 div[class*='codeBlockContent'] .token-line:hover {
-  background: rgba(255, 138, 61, 0.05);
+  background: linear-gradient(90deg, rgba(184, 95, 43, 0.26), rgba(184, 95, 43, 0.08));
+  border-left-color: rgba(239, 138, 70, 0.72);
 }
 
 /* 语法高亮颜色 - 橙色主题 */
@@ -1297,22 +1335,22 @@ div[class*='codeBlockContent'] .token-line:hover {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: rgba(239, 231, 220, 0.35);
+  color: #6072a5 !important;
   font-style: italic;
 }
 
 .token.punctuation {
-  color: rgba(239, 231, 220, 0.6);
+  color: rgba(218, 202, 176, 0.78) !important;
 }
 
+.token.key,
 .token.property,
 .token.tag,
-.token.boolean,
-.token.number,
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: #ff9652;
+  color: #f08a42 !important;
+  font-weight: 700;
 }
 
 .token.selector,
@@ -1321,7 +1359,7 @@ div[class*='codeBlockContent'] .token-line:hover {
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: #ffa366;
+  color: #f07bc1 !important;
 }
 
 .token.operator,
@@ -1329,24 +1367,27 @@ div[class*='codeBlockContent'] .token-line:hover {
 .token.url,
 .language-css .token.string,
 .style .token.string {
-  color: #ffb37f;
+  color: #dfcfb5 !important;
 }
 
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-  color: #ff8a3d;
+  color: #f08a42 !important;
+  font-weight: 700;
 }
 
 .token.function,
 .token.class-name {
-  color: #ffc58d;
+  color: #f4c28d !important;
 }
 
 .token.regex,
 .token.important,
-.token.variable {
-  color: #ffd4a8;
+.token.variable,
+.token.boolean,
+.token.number {
+  color: #f0c79a !important;
 }
 
 .token.namespace {
@@ -1355,7 +1396,8 @@ div[class*='codeBlockContent'] .token-line:hover {
 
 .theme-code-block-highlighted-line,
 .token-line[style*='var(--docusaurus-highlighted-code-line-bg)'] {
-  background: rgba(255, 138, 61, 0.08);
+  background: linear-gradient(90deg, rgba(184, 95, 43, 0.28), rgba(184, 95, 43, 0.12)) !important;
+  border-left: 2px solid rgba(239, 138, 70, 0.82);
 }
 
 /* 行号 */
@@ -1373,25 +1415,47 @@ div[class*='codeBlockContent'] .token-line:hover [class*='codeBlockLineNumber'] 
 }
 
 /* 复制按钮 */
+div[class*='buttonGroup'] {
+  column-gap: 0.35rem;
+  right: 0.7rem;
+  top: 0.7rem;
+  z-index: 12;
+}
+
+div[class*='buttonGroup'] button,
 button[class*='copyButton'] {
-  background: rgba(255, 138, 61, 0.08);
-  border: 1px solid rgba(255, 138, 61, 0.2);
-  border-radius: 0.4rem;
-  color: rgba(239, 231, 220, 0.7);
+  align-items: center;
+  background: rgba(5, 8, 5, 0.72);
+  border: 1px solid rgba(239, 138, 70, 0.44);
+  border-radius: 0.06rem;
+  box-shadow: inset 0 0 0 1px rgba(239, 138, 70, 0.08);
+  color: #f08a42;
+  display: inline-flex;
   font-size: 0.85rem;
-  padding: 0.4rem 0.8rem;
-  transition: all 200ms ease;
+  height: 2.1rem;
+  justify-content: center;
+  opacity: 1;
+  padding: 0;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+  width: 2.1rem;
 }
 
+div[class*='buttonGroup'] button:hover,
 button[class*='copyButton']:hover {
-  background: rgba(255, 138, 61, 0.15);
-  border-color: rgba(255, 138, 61, 0.4);
-  color: #fff8ef;
-  transform: translateY(-1px);
+  background: rgba(239, 138, 70, 0.12);
+  border-color: rgba(239, 138, 70, 0.82);
+  color: #ffb06f;
 }
 
+div[class*='buttonGroup'] button:active,
 button[class*='copyButton']:active {
-  transform: translateY(0);
+  background: rgba(239, 138, 70, 0.18);
+}
+
+button[class*='copyButton'] svg,
+div[class*='buttonGroup'] svg {
+  height: 1.12rem;
+  width: 1.12rem;
 }
 
 img {
@@ -1957,16 +2021,33 @@ img {
 
   div[class*='codeBlockContent'] {
     --ifm-pre-padding: 1rem;
+    padding-top: 2.6rem !important;
   }
 
   div[class*='codeBlockContent'] [class*='codeBlockLines'],
   div[class*='codeBlockContent'] .prism-code {
-    padding-left: 1rem;
+    padding: 1rem;
   }
 
+  div[class*='codeBlockContainer']::before {
+    height: 2.6rem;
+    padding-left: 3.75rem;
+  }
+
+  div[class*='codeBlockContainer']::after {
+    left: 0.9rem;
+    top: 1.12rem;
+  }
+
+  div[class*='buttonGroup'] {
+    right: 0.55rem;
+    top: 0.55rem;
+  }
+
+  div[class*='buttonGroup'] button,
   button[class*='copyButton'] {
-    transform: scale(0.94);
-    transform-origin: top right;
+    height: 1.85rem;
+    width: 1.85rem;
   }
 
   .theme-doc-footer-tags-row {
@@ -2273,16 +2354,7 @@ img {
 }
 
 .theme-doc-markdown div[class*='admonition']::after {
-  background: linear-gradient(180deg, transparent, rgba(255, 138, 61, 0.4), transparent);
-  content: '';
-  height: 60px;
-  left: 0;
-  pointer-events: none;
-  position: absolute;
-  right: 0;
-  top: -60px;
-  animation: admonitionScan 6s ease-in-out infinite;
-  animation-delay: 1s;
+  display: none;
 }
 
 @keyframes admonitionEnter {
@@ -3240,14 +3312,14 @@ header[class*='heroBanner'] {
 /* 文档内容区域添加战术装饰 */
 .docMainContainer {
   position: relative;
-  padding-top: calc(var(--ifm-navbar-height) + 2.5rem);
+  padding-top: 120px;
 }
 
 /* 文档页面顶部装饰条 */
 .docMainContainer::before {
   content: '';
   position: absolute;
-  top: calc(var(--ifm-navbar-height) + 2rem);
+  top: 110px;
   left: 0;
   right: 0;
   height: 3px;
