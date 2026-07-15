@@ -1,0 +1,360 @@
+.plasticPage {
+  background:
+    radial-gradient(circle at 50% 8%, rgba(39, 147, 255, 0.14), transparent 30%),
+    linear-gradient(180deg, rgba(7, 12, 24, 0.48) 0%, rgba(10, 10, 13, 0) 34%);
+  overflow: hidden;
+}
+
+.hero {
+  min-height: 88vh;
+  padding: 10rem 0 7rem;
+  position: relative;
+}
+
+.hero::before {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.026) 1px, transparent 1px) 0 0 / 52px 52px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.026) 1px, transparent 1px) 0 0 / 52px 52px;
+  content: '';
+  inset: 0;
+  mask-image: radial-gradient(ellipse at center, #000 36%, transparent 76%);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 36%, transparent 76%);
+  pointer-events: none;
+  position: absolute;
+}
+
+.hero::after {
+  background:
+    radial-gradient(ellipse 46% 24% at 50% 48%, rgba(27, 132, 255, 0.24), transparent 70%);
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.heroShell {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+  min-height: 58vh;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  z-index: 1;
+}
+
+.heroShell::before {
+  border: 1px dashed rgba(88, 166, 255, 0.18);
+  content: '';
+  inset: 8% 8% 0;
+  mask-image: linear-gradient(180deg, #000, transparent 86%);
+  -webkit-mask-image: linear-gradient(180deg, #000, transparent 86%);
+  pointer-events: none;
+  position: absolute;
+}
+
+.heroEyebrow {
+  align-items: center;
+  color: rgba(177, 214, 255, 0.72);
+  display: inline-flex;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  gap: 0.55rem;
+  letter-spacing: 0.16em;
+  margin-bottom: 1.6rem;
+  text-transform: uppercase;
+}
+
+.statusDot {
+  animation: plasticPulse 2s ease-in-out infinite;
+  background: #3ea0ff;
+  border-radius: 50%;
+  box-shadow: 0 0 14px rgba(62, 160, 255, 0.85);
+  height: 0.55rem;
+  width: 0.55rem;
+}
+
+.heroTitle {
+  color: #f7fbff;
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(2.4rem, 5.6vw, 6.4rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 0.98;
+  margin: 0;
+  max-width: 100%;
+  text-shadow:
+    0 0 30px rgba(54, 153, 255, 0.42),
+    0 18px 54px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+}
+
+.heroButton {
+  align-items: center;
+  background: linear-gradient(90deg, #28a8ff 0%, #0751d8 100%);
+  border: 1px solid rgba(127, 198, 255, 0.66);
+  border-radius: 0;
+  box-shadow:
+    0 0 0 1px rgba(28, 134, 255, 0.36),
+    0 0 28px rgba(24, 128, 255, 0.42),
+    0 18px 44px rgba(4, 36, 106, 0.5);
+  clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 13px 100%, 0 calc(100% - 13px));
+  color: #f7fbff;
+  display: inline-flex;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.95rem;
+  font-weight: 800;
+  gap: 0.72rem;
+  justify-content: center;
+  letter-spacing: 0.02em;
+  margin-top: 2.35rem;
+  min-height: 3.25rem;
+  min-width: 11rem;
+  overflow: hidden;
+  padding: 0.95rem 1.55rem;
+  position: relative;
+  text-decoration: none;
+  transition:
+    box-shadow 220ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.heroButton::before {
+  background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.5) 50%, transparent 70%);
+  content: '';
+  inset: 0;
+  position: absolute;
+  transform: translateX(-125%);
+  transition: transform 680ms ease;
+}
+
+.heroButton:hover {
+  box-shadow:
+    0 0 0 1px rgba(164, 216, 255, 0.82),
+    0 0 34px rgba(32, 146, 255, 0.62),
+    0 22px 54px rgba(4, 36, 106, 0.62);
+  color: #ffffff;
+  text-decoration: none;
+  transform: translateY(-3px);
+}
+
+.heroButton:hover::before {
+  transform: translateX(125%);
+}
+
+.externalIcon {
+  fill: none;
+  height: 1.05rem;
+  position: relative;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.15;
+  width: 1.05rem;
+}
+
+.featuresSection {
+  padding: 2rem 0 7rem;
+  position: relative;
+}
+
+.featuresTrack {
+  display: grid;
+  gap: clamp(3rem, 7vw, 6rem);
+}
+
+.featureRow {
+  align-items: center;
+  display: grid;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+  min-height: 28rem;
+  position: relative;
+}
+
+.featureRowright {
+  grid-template-columns: minmax(18rem, 0.9fr) minmax(0, 1.1fr);
+}
+
+.featureVisual {
+  min-height: clamp(21rem, 38vw, 34rem);
+  position: relative;
+}
+
+.featureVisual::after {
+  background: linear-gradient(90deg, transparent 0%, rgba(10, 10, 13, 0.92) 82%, #0a0a0d 100%);
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.featureRowright .featureVisual::after {
+  background: linear-gradient(270deg, transparent 0%, rgba(10, 10, 13, 0.92) 82%, #0a0a0d 100%);
+}
+
+.visualFrame {
+  background: rgba(8, 16, 34, 0.74);
+  border: 1px solid rgba(106, 186, 255, 0.24);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 30px 80px rgba(0, 0, 0, 0.36),
+    0 0 38px rgba(29, 135, 255, 0.2);
+  clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px));
+  inset: 0;
+  overflow: hidden;
+  position: absolute;
+}
+
+.visualFrame::before {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 24%),
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 34px 34px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 34px 34px;
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.visualFrame::after {
+  animation: plasticScan 5.6s ease-in-out infinite;
+  background: linear-gradient(180deg, transparent, rgba(65, 166, 255, 0.2), transparent);
+  content: '';
+  height: 8rem;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: -8rem;
+  z-index: 2;
+}
+
+.visualImage {
+  display: block;
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  object-position: center;
+  position: absolute;
+  transform: scale(1.02);
+  width: 100%;
+}
+
+.visualCode {
+  color: rgba(191, 225, 255, 0.64);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.78rem;
+  font-weight: 800;
+  left: 1.2rem;
+  letter-spacing: 0.14em;
+  position: absolute;
+  top: 1rem;
+  z-index: 3;
+}
+
+.featureCopy {
+  justify-self: start;
+  position: relative;
+  z-index: 1;
+}
+
+.featureKicker {
+  color: rgba(89, 177, 255, 0.82);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  margin-bottom: 1rem;
+}
+
+.featureTitle {
+  color: #f7fbff;
+  display: grid;
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(2.7rem, 6vw, 5.8rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.02;
+  margin: 0;
+  text-shadow: 0 0 24px rgba(45, 145, 255, 0.18);
+}
+
+@keyframes plasticPulse {
+  0%, 100% {
+    opacity: 0.68;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes plasticScan {
+  0% {
+    transform: translateY(0);
+  }
+  56%, 100% {
+    transform: translateY(46rem);
+  }
+}
+
+@media (max-width: 996px) {
+  .hero {
+    min-height: auto;
+    padding: 8.5rem 0 5rem;
+  }
+
+  .heroShell {
+    min-height: 48vh;
+  }
+
+  .featureRow,
+  .featureRowright {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .featureRowright .featureCopy {
+    order: 2;
+  }
+
+  .featureRowright .featureVisual {
+    order: 1;
+  }
+
+  .featureVisual::after,
+  .featureRowright .featureVisual::after {
+    background: linear-gradient(180deg, transparent 0%, rgba(10, 10, 13, 0.72) 78%, #0a0a0d 100%);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 7.2rem 0 4rem;
+  }
+
+  .heroShell::before {
+    inset: 2% 0 0;
+  }
+
+  .heroButton {
+    width: min(100%, 18rem);
+  }
+
+  .heroTitle {
+    font-size: clamp(1.95rem, 8.2vw, 2.4rem);
+  }
+
+  .featuresSection {
+    padding-bottom: 4.5rem;
+  }
+
+  .featureVisual {
+    min-height: 18rem;
+  }
+}

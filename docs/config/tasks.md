@@ -83,7 +83,7 @@ tasks:
   metric: RAID_COMPLETE
   target: 2
   rewardCoins: "120.00"
-  rewardRep: 10
+  rewardRep: 0.01
 ```
 
 ### 常见字段
@@ -124,7 +124,8 @@ tasks:
 
 作用：
 
-* 完成任务后给予的金币与声望奖励
+* 完成任务后给予的金币与商人好感度奖励
+* 好感度建议使用两位小数，默认任务通常为 `0.01` 到 `0.03`
 
 `rewardItems`
 
@@ -160,7 +161,7 @@ tasks:
 * 上交物品：`ITEM_DELIVER`
 
 :::warning
-任务模板通常会和商人、物品库、声望系统联动。新增或修改模板时，请确认 `traderId` 和 `itemlabId` 在你的服务器内容里确实存在。
+任务模板通常会和商人、物品库、好感度系统联动。新增或修改模板时，请确认 `traderId` 和 `itemlabId` 在你的服务器内容里确实存在。
 :::
 
 ## 使用实例
@@ -176,7 +177,7 @@ tasks:
   metric: RAID_COMPLETE
   target: 2
   rewardCoins: "120.00"
-  rewardRep: 10
+  rewardRep: 0.01
 ```
 
 适合用于：
@@ -197,7 +198,7 @@ tasks:
   itemlabId: COAL_BLOCK
   deliveryMode: strict
   rewardCoins: "260.00"
-  rewardRep: 26
+  rewardRep: 0.03
 ```
 
 适合用于：
@@ -230,7 +231,7 @@ tasks:
       metric: RAID_COMPLETE
       target: 2
       rewardCoins: "120.00"
-      rewardRep: 10
+      rewardRep: 0.01
       rewardItems:
         - itemlabId: Torch
           amount: 1
@@ -243,7 +244,7 @@ tasks:
       metric: LOOTBOX_OPEN
       target: 6
       rewardCoins: "140.00"
-      rewardRep: 12
+      rewardRep: 0.01
       rewardItems:
         - itemlabId: Sapling
           amount: 1
@@ -258,7 +259,7 @@ tasks:
       itemlabId: Planks
       deliveryMode: normal
       rewardCoins: "160.00"
-      rewardRep: 14
+      rewardRep: 0.01
       rewardItems:
         - itemlabId: Bottle
           amount: 1
@@ -271,7 +272,7 @@ tasks:
       metric: AI_KILL
       target: 5
       rewardCoins: "180.00"
-      rewardRep: 16
+      rewardRep: 0.02
       rewardItems:
         - itemlabId: IRON_BLOCK
           amount: 1
@@ -284,7 +285,7 @@ tasks:
       metric: SUCCESS_EVAC
       target: 1
       rewardCoins: "220.00"
-      rewardRep: 22
+      rewardRep: 0.02
       rewardItems:
         - itemlabId: REDSTONE
           amount: 1
@@ -299,7 +300,7 @@ tasks:
       itemlabId: COAL_BLOCK
       deliveryMode: strict
       rewardCoins: "260.00"
-      rewardRep: 26
+      rewardRep: 0.03
       rewardItems:
         - itemlabId: GUNPOWDER
           amount: 1

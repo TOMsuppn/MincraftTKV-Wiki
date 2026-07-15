@@ -11,7 +11,13 @@ const sidebars = {
         'config/debug',
         'config/maps',
         'config/market',
+        'config/items',
+        'config/types',
+        'config/weapons',
+        'config/keycards',
+        'config/bot',
         'config/tasks',
+        'config/traders',
       ],
     },
     {
@@ -21,6 +27,7 @@ const sidebars = {
       items: [
         'systems/hideout',
         'systems/extraction-points',
+        'systems/papi-variables',
       ],
     },
     {

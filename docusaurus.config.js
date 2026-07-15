@@ -11,7 +11,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'MinecraftTKV Wiki',
-  tagline: 'MinecraftTKV 插件文档与使用指南',
+  tagline: 'MinecraftTKV Beta.1-Preview3 插件文档：战局管理、AI、武器、物资箱与社交系统配置指南',
   favicon: 'img/favicon-minecrafttkv.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -33,7 +33,7 @@ const config = {
   onBrokenLinks: 'throw',
 
   stylesheets: [
-    'https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap',
+    'https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;900&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap',
   ],
 
   // Even if you don't use internationalization, you can use this field to set
@@ -93,7 +93,7 @@ const config = {
         title: '',
         logo: {
           alt: 'MinecraftTKV',
-          src: 'img/minecrafttkv-logo-black.png',
+          src: 'img/minecrafttkv-logo-white-vector.svg',
         },
         items: [
           {
@@ -110,6 +110,17 @@ const config = {
             to: '/docs/changelog',
             label: '更新日志',
             position: 'left',
+          },
+          {
+            to: '/plan',
+            label: '计划',
+            position: 'left',
+          },
+          {
+            to: '/plastic',
+            label: 'Plastic',
+            position: 'left',
+            className: 'navbar__plastic-link',
           },
           {
             type: 'html',

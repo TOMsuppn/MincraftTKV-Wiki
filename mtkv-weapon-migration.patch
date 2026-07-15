@@ -1,0 +1,608 @@
+--- /Users/tomlol/TOMXDD/MinecraftTKV/SrCode/MinecraftTKV/src/main/java/me/tomsuppn/minecraftTKV/Commands/MTKVCommands/WeaponCommand.java
++++ /private/tmp/mtkv-patched/src/main/java/me/tomsuppn/minecraftTKV/Commands/MTKVCommands/WeaponCommand.java
+@@ -316,54 +316,13 @@
+      * 创建枪械物品
+      */
+     private ItemStack createGunItem(Gun gun) {
+-        ItemStack item = new ItemStack(gun.getMaterial());
+-        ItemMeta meta = item.getItemMeta();
+-        if (meta == null) return item;
+-
+-        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', gun.getDisplayName()));
+-        meta.setCustomModelData(gun.getCustomModelData());
+-
+-        // 设置 Lore
+-        List<String> lore = new ArrayList<>();
+-        for (String line : gun.getLore()) {
+-            lore.add(ChatColor.translateAlternateColorCodes('&', line));
+-        }
+-        lore.add(ChatColor.GRAY + "弹药: " + ChatColor.YELLOW + gun.getMaxBullets() + "/" + gun.getMaxBullets());
+-        meta.setLore(lore);
+-
+-        // 使用 PersistentDataContainer 存储枪械数据
+-        NamespacedKey weaponIdKey = new NamespacedKey(plugin, "weapon_id");
+-        NamespacedKey currentAmmoKey = new NamespacedKey(plugin, "current_ammo");
+-        meta.getPersistentDataContainer().set(weaponIdKey, PersistentDataType.STRING, gun.getName());
+-        meta.getPersistentDataContainer().set(currentAmmoKey, PersistentDataType.INTEGER, gun.getMaxBullets());
+-
+-        item.setItemMeta(meta);
+-        return item;
++        return gun.createItemStack(plugin);
+     }
+ 
+     /**
+      * 创建弹药物品
+      */
+     private ItemStack createAmmoItem(Ammo ammo) {
+-        ItemStack item = new ItemStack(ammo.getMaterial());
+-        ItemMeta meta = item.getItemMeta();
+-        if (meta == null) return item;
+-
+-        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', ammo.getDisplayName()));
+-        meta.setCustomModelData(ammo.getCustomModelData());
+-
+-        // 设置 Lore
+-        List<String> lore = new ArrayList<>();
+-        for (String line : ammo.getLore()) {
+-            lore.add(ChatColor.translateAlternateColorCodes('&', line));
+-        }
+-        meta.setLore(lore);
+-
+-        // 使用 PersistentDataContainer 存储弹药数据
+-        NamespacedKey ammoIdKey = new NamespacedKey(plugin, "ammo_id");
+-        meta.getPersistentDataContainer().set(ammoIdKey, PersistentDataType.STRING, ammo.getName());
+-
+-        item.setItemMeta(meta);
+-        return item;
++        return ammo.createItemStack(1, plugin);
+     }
+ }
+--- /Users/tomlol/TOMXDD/MinecraftTKV/SrCode/MinecraftTKV/src/main/java/me/tomsuppn/minecraftTKV/Weapons/config/AmmoConfigLoader.java
++++ /private/tmp/mtkv-patched/src/main/java/me/tomsuppn/minecraftTKV/Weapons/config/AmmoConfigLoader.java
+@@ -5,6 +5,9 @@
+ import org.bukkit.configuration.file.YamlConfiguration;
+ 
+ import java.io.File;
++import java.io.InputStream;
++import java.io.InputStreamReader;
++import java.nio.charset.StandardCharsets;
+ import java.util.ArrayList;
+ import java.util.List;
+ 
+@@ -25,15 +28,26 @@
+         }
+ 
+         String displayName = config.getString("display-name", name);
++        YamlConfiguration bundledDefault = loadBundledDefault(file.getName());
+         String materialStr = config.getString("material", "PHANTOM_MEMBRANE");
++        int customModelData = config.getInt("custom-model-data", config.getInt("id", 0));
++
++        if ("GOLD_NUGGET".equalsIgnoreCase(materialStr)) {
++            materialStr = bundledDefault != null ? bundledDefault.getString("material", "PHANTOM_MEMBRANE") : "PHANTOM_MEMBRANE";
++        }
++        if (customModelData >= 1000) {
++            int bundledModelData = bundledDefault != null ? bundledDefault.getInt("custom-model-data", customModelData) : customModelData;
++            if (bundledModelData > 0) {
++                customModelData = bundledModelData;
++            }
++        }
++
+         Material material;
+         try {
+             material = Material.valueOf(materialStr.toUpperCase());
+         } catch (IllegalArgumentException e) {
+             throw new Exception("无效的材质类型: " + materialStr);
+         }
+-
+-        int customModelData = config.getInt("custom-model-data", 0);
+         int maxStack = config.getInt("max-stack", 64);
+         double piercingDamage = config.getDouble("piercing-damage", 1.0);
+         double price = config.getDouble("price", 0.0);
+@@ -44,6 +58,29 @@
+ 
+         return new Ammo(name, displayName, material, customModelData,
+                 maxStack, piercingDamage, price, lore);
++    }
++
++    private static YamlConfiguration loadBundledDefault(String fileName) {
++        if (fileName == null || fileName.isEmpty()) {
++            return null;
++        }
++
++        List<String> candidates = new ArrayList<>();
++        candidates.add(fileName);
++        if (fileName.startsWith("default_")) {
++            candidates.add(fileName.substring("default_".length()));
++        }
++
++        for (String candidate : candidates) {
++            String resourcePath = "config-defaults/config/weapons/ammo/" + candidate;
++            try (InputStream in = AmmoConfigLoader.class.getClassLoader().getResourceAsStream(resourcePath)) {
++                if (in != null) {
++                    return YamlConfiguration.loadConfiguration(new InputStreamReader(in, StandardCharsets.UTF_8));
++                }
++            } catch (Exception ignored) {
++            }
++        }
++        return null;
+     }
+ 
+     /**
+--- /Users/tomlol/TOMXDD/MinecraftTKV/SrCode/MinecraftTKV/src/main/java/me/tomsuppn/minecraftTKV/Weapons/config/WeaponConfigLoader.java
++++ /private/tmp/mtkv-patched/src/main/java/me/tomsuppn/minecraftTKV/Weapons/config/WeaponConfigLoader.java
+@@ -13,6 +13,7 @@
+ import org.bukkit.configuration.file.YamlConfiguration;
+ 
+ import java.io.File;
++import java.io.InputStream;
+ import java.util.ArrayList;
+ import java.util.List;
+ import java.util.logging.Logger;
+@@ -42,15 +43,28 @@
+         }
+         displayName = ChatColor.translateAlternateColorCodes('&', displayName);
+ 
+-        String materialStr = config.getString("material", "DIAMOND_HOE");
++        YamlConfiguration bundledDefault = loadBundledDefault("guns", file.getName());
++        String materialStr = config.getString("material", "CROSSBOW");
++        int customModelData = config.getInt("custom-model-data", config.getInt("id", 0));
++
++        if ("DIAMOND_HOE".equalsIgnoreCase(materialStr)) {
++            materialStr = bundledDefault != null ? bundledDefault.getString("material", "CROSSBOW") : "CROSSBOW";
++            logger.warning("枪械配置 " + file.getName() + " 使用旧材质 DIAMOND_HOE，已映射为 " + materialStr + " 以兼容 QA 材质包");
++        }
++        if (customModelData <= 0 || customModelData >= 1000) {
++            int bundledModelData = bundledDefault != null ? bundledDefault.getInt("custom-model-data", customModelData) : customModelData;
++            if (bundledModelData > 0 && bundledModelData != customModelData) {
++                logger.warning("枪械配置 " + file.getName() + " 使用旧 CustomModelData=" + customModelData + "，已映射为 " + bundledModelData);
++                customModelData = bundledModelData;
++            }
++        }
++
+         Material material;
+         try {
+             material = Material.valueOf(materialStr.toUpperCase());
+         } catch (IllegalArgumentException e) {
+             throw new Exception("无效的材质类型: " + materialStr + " 在文件 " + file.getName());
+         }
+-
+-        int customModelData = config.getInt("custom-model-data", config.getInt("id", 0));
+ 
+         String weaponTypeStr = config.getString("weapon-type", config.getString("guntype", "RIFLE"));
+         WeaponType weaponType;
+@@ -281,6 +295,30 @@
+         }
+     }
+ 
++    private static YamlConfiguration loadBundledDefault(String type, String fileName) {
++        if (fileName == null || fileName.isEmpty()) {
++            return null;
++        }
++
++        List<String> candidates = new ArrayList<>();
++        candidates.add(fileName);
++        if (fileName.startsWith("default_")) {
++            candidates.add(fileName.substring("default_".length()));
++        }
++
++        for (String candidate : candidates) {
++            String resourcePath = "config-defaults/config/weapons/" + type + "/" + candidate;
++            try (InputStream in = WeaponConfigLoader.class.getClassLoader().getResourceAsStream(resourcePath)) {
++                if (in != null) {
++                    return YamlConfiguration.loadConfiguration(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8));
++                }
++            } catch (Exception ex) {
++                logger.warning("无法读取内置枪械默认配置 " + resourcePath + ": " + ex.getMessage());
++            }
++        }
++        return null;
++    }
++
+     /**
+      * 创建默认枪械配置文件（完整版 - 包含所有 QualityArmory 属性）
+      */
+--- /Users/tomlol/TOMXDD/MinecraftTKV/SrCode/MinecraftTKV/src/main/java/me/tomsuppn/minecraftTKV/Weapons/core/Ammo.java
++++ /private/tmp/mtkv-patched/src/main/java/me/tomsuppn/minecraftTKV/Weapons/core/Ammo.java
+@@ -1,7 +1,14 @@
+ package me.tomsuppn.minecraftTKV.Weapons.core;
+ 
++import me.tomsuppn.minecraftTKV.MinecraftTKV;
++import org.bukkit.ChatColor;
++import org.bukkit.NamespacedKey;
+ import org.bukkit.Material;
++import org.bukkit.inventory.ItemStack;
++import org.bukkit.inventory.meta.ItemMeta;
++import org.bukkit.persistence.PersistentDataType;
+ 
++import java.util.ArrayList;
+ import java.util.List;
+ 
+ /**
+@@ -63,4 +70,44 @@
+     public List<String> getLore() {
+         return lore;
+     }
++
++    public ItemStack createItemStack() {
++        return createItemStack(1, null);
++    }
++
++    public ItemStack createItemStack(int amount) {
++        return createItemStack(amount, null);
++    }
++
++    public ItemStack createItemStack(int amount, MinecraftTKV plugin) {
++        int stackAmount = Math.max(1, Math.min(amount, maxStack));
++        ItemStack item = new ItemStack(getMaterial(), stackAmount);
++        ItemMeta meta = item.getItemMeta();
++        if (meta == null) {
++            return item;
++        }
++
++        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', displayName));
++        if (getCustomModelData() > 0) {
++            meta.setCustomModelData(getCustomModelData());
++        }
++
++        List<String> itemLore = new ArrayList<>();
++        if (lore != null) {
++            for (String line : lore) {
++                itemLore.add(ChatColor.translateAlternateColorCodes('&', line));
++            }
++        }
++        meta.setLore(itemLore);
++
++        if (plugin != null) {
++            meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "ammo_id"), PersistentDataType.STRING, name);
++            if (plugin.getAmmoTypeKey() != null) {
++                meta.getPersistentDataContainer().set(plugin.getAmmoTypeKey(), PersistentDataType.STRING, name);
++            }
++        }
++
++        item.setItemMeta(meta);
++        return item;
++    }
+ }
+--- /Users/tomlol/TOMXDD/MinecraftTKV/SrCode/MinecraftTKV/src/main/java/me/tomsuppn/minecraftTKV/Weapons/core/Gun.java
++++ /private/tmp/mtkv-patched/src/main/java/me/tomsuppn/minecraftTKV/Weapons/core/Gun.java
+@@ -1,19 +1,24 @@
+ package me.tomsuppn.minecraftTKV.Weapons.core;
+ 
++import me.tomsuppn.minecraftTKV.MinecraftTKV;
+ import me.tomsuppn.minecraftTKV.Weapons.attachments.Attachment;
+ import me.tomsuppn.minecraftTKV.Weapons.attachments.AttachmentType;
+ import me.tomsuppn.minecraftTKV.Weapons.chargers.ChargingHandler;
+ import me.tomsuppn.minecraftTKV.Weapons.handlers.AttachmentHandler;
++import me.tomsuppn.minecraftTKV.Weapons.handlers.ReloadHandler;
+ import me.tomsuppn.minecraftTKV.Weapons.projectiles.RealtimeCalculationProjectile;
+ import me.tomsuppn.minecraftTKV.Weapons.reloaders.ReloadingHandler;
+ import me.tomsuppn.minecraftTKV.Weapons.scope.Scope;
+ import me.tomsuppn.minecraftTKV.Weapons.scope.ScopeType;
+ import org.bukkit.ChatColor;
+ import org.bukkit.Material;
++import org.bukkit.NamespacedKey;
+ import org.bukkit.Particle;
+ import org.bukkit.Sound;
+ import org.bukkit.entity.Player;
+ import org.bukkit.inventory.ItemStack;
++import org.bukkit.inventory.meta.ItemMeta;
++import org.bukkit.persistence.PersistentDataType;
+ 
+ import java.util.ArrayList;
+ import java.util.HashMap;
+@@ -234,6 +239,43 @@
+         return lore;
+     }
+ 
++    public ItemStack createItemStack() {
++        return createItemStack(null);
++    }
++
++    public ItemStack createItemStack(MinecraftTKV plugin) {
++        ItemStack item = new ItemStack(getMaterial());
++        ItemMeta meta = item.getItemMeta();
++        if (meta == null) {
++            return item;
++        }
++
++        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', displayName));
++        if (getCustomModelData() > 0) {
++            meta.setCustomModelData(getCustomModelData());
++        }
++
++        List<String> itemLore = new ArrayList<>();
++        if (lore != null) {
++            for (String line : lore) {
++                itemLore.add(ChatColor.translateAlternateColorCodes('&', line));
++            }
++        }
++        itemLore.add(ChatColor.GRAY + "弹药: " + ChatColor.YELLOW + maxBullets + "/" + maxBullets);
++        meta.setLore(itemLore);
++
++        if (plugin != null) {
++            meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "weapon_id"), PersistentDataType.STRING, name);
++            meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "current_ammo"), PersistentDataType.INTEGER, maxBullets);
++            if (plugin.getAmmoKey() != null) {
++                meta.getPersistentDataContainer().set(plugin.getAmmoKey(), PersistentDataType.INTEGER, maxBullets);
++            }
++        }
++
++        item.setItemMeta(meta);
++        return item;
++    }
++
+     /**
+      * 获取射击冷却时间（毫秒）
+      * 用于玩家射击的冷却时间计算
+@@ -810,26 +852,22 @@
+      * 获取玩家当前弹药数量（静态方法 - 用于充能系统）
+      */
+     public static int getAmount(Player player) {
+-        // TODO: 实现从玩家物品栏获取弹药数量的逻辑
+-        // 这里需要根据实际的弹药系统实现
+-        ItemStack item = player.getInventory().getItemInMainHand();
+-        if (item == null || !item.hasItemMeta()) {
++        if (player == null) {
+             return 0;
+         }
+-        // 临时实现：从物品的 lore 或 NBT 中读取弹药数
+-        return 0;
++        return ReloadHandler.getCurrentAmmo(player.getInventory().getItemInMainHand());
+     }
+ 
+     /**
+      * 更新弹药数量（静态方法 - 用于充能系统）
+      */
+     public static void updateAmmo(Gun gun, ItemStack stack, int amount) {
+-        // TODO: 实现更新物品弹药数量的逻辑
+-        // 这里需要根据实际的弹药系统实现
+-        if (stack == null || !stack.hasItemMeta()) {
++        if (gun == null || stack == null || !stack.hasItemMeta()) {
+             return;
+         }
+-        // 临时实现：将弹药数写入物品的 lore 或 NBT
++        int clamped = Math.max(0, Math.min(gun.getMaxBullets(), amount));
++        ReloadHandler.setCurrentAmmo(stack, clamped);
++        ReloadHandler.updateAmmoLore(stack, gun, clamped);
+     }
+ 
+     // ==================== 实用方法 ====================
+--- /Users/tomlol/TOMXDD/MinecraftTKV/SrCode/MinecraftTKV/src/main/java/me/tomsuppn/minecraftTKV/Weapons/core/MaterialStorage.java
++++ /private/tmp/mtkv-patched/src/main/java/me/tomsuppn/minecraftTKV/Weapons/core/MaterialStorage.java
+@@ -111,8 +111,18 @@
+             me.tomsuppn.minecraftTKV.MinecraftTKV plugin = me.tomsuppn.minecraftTKV.MinecraftTKV.getInstance();
+             if (plugin != null && plugin.getWeaponManager() != null) {
+                 Gun gun = plugin.getWeaponManager().getRegistry().getGun(gunName);
+-                if (gun != null && gun.getCustomModelData() > 0) {
+-                    meta.setCustomModelData(gun.getCustomModelData());
++                if (gun != null) {
++                    if (gun.getCustomModelData() > 0) {
++                        meta.setCustomModelData(gun.getCustomModelData());
++                    }
++                    if (!meta.hasDisplayName()) {
++                        meta.setDisplayName(gun.getDisplayName());
++                    }
++                    meta.getPersistentDataContainer().set(new org.bukkit.NamespacedKey(plugin, "weapon_id"), org.bukkit.persistence.PersistentDataType.STRING, gun.getName());
++                    meta.getPersistentDataContainer().set(new org.bukkit.NamespacedKey(plugin, "current_ammo"), org.bukkit.persistence.PersistentDataType.INTEGER, gun.getMaxBullets());
++                    if (plugin.getAmmoKey() != null) {
++                        meta.getPersistentDataContainer().set(plugin.getAmmoKey(), org.bukkit.persistence.PersistentDataType.INTEGER, gun.getMaxBullets());
++                    }
+                 }
+             }
+         } catch (Throwable ignored) {}
+@@ -121,7 +131,10 @@
+         // 注意：这里需要 JavaPlugin 实例来创建 NamespacedKey
+         // 暂时使用简单的 Lore 标记方式
+         List<String> lore = meta.hasLore() ? meta.getLore() : new java.util.ArrayList<>();
+-        lore.add("§8[GUN:" + gunName + "]");
++        String marker = "§8[GUN:" + gunName + "]";
++        if (!lore.contains(marker)) {
++            lore.add(marker);
++        }
+         meta.setLore(lore);
+ 
+         item.setItemMeta(meta);
+--- /Users/tomlol/TOMXDD/MinecraftTKV/SrCode/MinecraftTKV/src/main/java/me/tomsuppn/minecraftTKV/Weapons/crafting/WeaponCrafting.java
++++ /private/tmp/mtkv-patched/src/main/java/me/tomsuppn/minecraftTKV/Weapons/crafting/WeaponCrafting.java
+@@ -278,30 +278,14 @@
+      * 创建枪械物品
+      */
+     private ItemStack createGunItem(Gun gun) {
+-        MaterialStorage ms = gun.getMaterialStorage();
+-        ItemStack item = new ItemStack(ms.getMaterial());
+-
+-        ItemBuilder builder = new ItemBuilder(item)
+-                .setDisplayName(gun.getDisplayName())
+-                .setCustomModelData(ms.getCustomModelData())
+-                .setLore(gun.getLore());
+-
+-        return builder.build();
++        return gun.createItemStack(plugin);
+     }
+ 
+     /**
+      * 创建弹药物品
+      */
+     private ItemStack createAmmoItem(Ammo ammo) {
+-        MaterialStorage ms = ammo.getMaterialStorage();
+-        ItemStack item = new ItemStack(ms.getMaterial());
+-
+-        ItemBuilder builder = new ItemBuilder(item)
+-                .setDisplayName(ammo.getDisplayName())
+-                .setCustomModelData(ms.getCustomModelData())
+-                .setLore(ammo.getLore());
+-
+-        return builder.build();
++        return ammo.createItemStack(1, plugin);
+     }
+ 
+     /**
+--- /Users/tomlol/TOMXDD/MinecraftTKV/SrCode/MinecraftTKV/src/main/java/me/tomsuppn/minecraftTKV/Weapons/handlers/AmmoDisplay.java
++++ /private/tmp/mtkv-patched/src/main/java/me/tomsuppn/minecraftTKV/Weapons/handlers/AmmoDisplay.java
+@@ -63,18 +63,7 @@
+             return 0;
+         }
+ 
+-        ItemMeta meta = item.getItemMeta();
+-        if (meta == null) {
+-            return 0;
+-        }
+-
+-        // 从 PDC 读取弹药数
+-        Integer ammo = meta.getPersistentDataContainer().get(
+-            plugin.getAmmoKey(),
+-            PersistentDataType.INTEGER
+-        );
+-
+-        return ammo != null ? ammo : 0;
++        return ReloadHandler.getCurrentAmmo(item);
+     }
+ 
+     /**
+--- /Users/tomlol/TOMXDD/MinecraftTKV/SrCode/MinecraftTKV/src/main/java/me/tomsuppn/minecraftTKV/Weapons/handlers/ReloadHandler.java
++++ /private/tmp/mtkv-patched/src/main/java/me/tomsuppn/minecraftTKV/Weapons/handlers/ReloadHandler.java
+@@ -435,9 +435,19 @@
+         if (gunItem == null || !gunItem.hasItemMeta()) return 0;
+ 
+         ItemMeta meta = gunItem.getItemMeta();
+-        NamespacedKey key = new NamespacedKey(MinecraftTKV.getInstance(), "current_ammo");
+-        return meta.getPersistentDataContainer()
+-                .getOrDefault(key, PersistentDataType.INTEGER, 0);
++        MinecraftTKV plugin = MinecraftTKV.getInstance();
++        NamespacedKey key = new NamespacedKey(plugin, "current_ammo");
++        Integer currentAmmo = meta.getPersistentDataContainer().get(key, PersistentDataType.INTEGER);
++        if (currentAmmo != null) {
++            return currentAmmo;
++        }
++        if (plugin.getAmmoKey() != null) {
++            Integer legacyAmmo = meta.getPersistentDataContainer().get(plugin.getAmmoKey(), PersistentDataType.INTEGER);
++            if (legacyAmmo != null) {
++                return legacyAmmo;
++            }
++        }
++        return 0;
+     }
+ 
+     /**
+@@ -447,8 +457,12 @@
+         if (gunItem == null || !gunItem.hasItemMeta()) return;
+ 
+         ItemMeta meta = gunItem.getItemMeta();
+-        NamespacedKey key = new NamespacedKey(MinecraftTKV.getInstance(), "current_ammo");
++        MinecraftTKV plugin = MinecraftTKV.getInstance();
++        NamespacedKey key = new NamespacedKey(plugin, "current_ammo");
+         meta.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, ammo);
++        if (plugin.getAmmoKey() != null) {
++            meta.getPersistentDataContainer().set(plugin.getAmmoKey(), PersistentDataType.INTEGER, ammo);
++        }
+         gunItem.setItemMeta(meta);
+     }
+ 
+--- /Users/tomlol/TOMXDD/MinecraftTKV/SrCode/MinecraftTKV/src/main/java/me/tomsuppn/minecraftTKV/Weapons/shop/WeaponShop.java
++++ /private/tmp/mtkv-patched/src/main/java/me/tomsuppn/minecraftTKV/Weapons/shop/WeaponShop.java
+@@ -66,7 +66,7 @@
+      * 创建枪械物品
+      */
+     private ItemStack createGunItemStack(Gun gun) {
+-        ItemStack item = new ItemStack(gun.getMaterial());
++        ItemStack item = gun.createItemStack(plugin);
+         ItemMeta meta = item.getItemMeta();
+         if (meta != null) {
+             meta.setDisplayName(ChatColor.GOLD + gun.getDisplayName());
+@@ -94,7 +94,7 @@
+      * 创建弹药物品
+      */
+     private ItemStack createAmmoItemStack(Ammo ammo) {
+-        ItemStack item = new ItemStack(ammo.getMaterial(), ammo.getMaxStack());
++        ItemStack item = ammo.createItemStack(ammo.getMaxStack(), plugin);
+         ItemMeta meta = item.getItemMeta();
+         if (meta != null) {
+             meta.setDisplayName(ChatColor.YELLOW + ammo.getDisplayName());
+--- /Users/tomlol/TOMXDD/MinecraftTKV/SrCode/MinecraftTKV/src/main/java/me/tomsuppn/minecraftTKV/config/ConfigManager.java
++++ /private/tmp/mtkv-patched/src/main/java/me/tomsuppn/minecraftTKV/config/ConfigManager.java
+@@ -6,9 +6,14 @@
+ 
+ import java.io.File;
+ import java.io.IOException;
++import java.net.URI;
++import java.nio.file.Files;
++import java.nio.file.Path;
+ import java.util.ArrayList;
+ import java.util.Collections;
+ import java.util.List;
++import java.util.jar.JarFile;
++import java.util.stream.Stream;
+ 
+ /**
+  * Bootstraps config layout, migration and unified YAML access.
+@@ -343,6 +348,9 @@
+         ensureFile(paths.weaponsArmorConfigFile(), "config-defaults/config/weapons/weapons-armor.yml");
+         ensureFile(paths.weaponsShopConfigFile(), "config-defaults/config/weapons/weapons-shop.yml");
+         ensureFile(paths.weaponsCraftingConfigFile(), "config-defaults/config/weapons/weapons-crafting.yml");
++        ensureDirectoryDefaults(paths.weaponsGunsDir(), "config-defaults/config/weapons/guns");
++        ensureDirectoryDefaults(paths.weaponsAmmoDir(), "config-defaults/config/weapons/ammo");
++        ensureDirectoryDefaults(paths.weaponsAttachmentsDir(), "config-defaults/config/weapons/attachments");
+ 
+         ensureFile(paths.lootTemplatesFile(), "config-defaults/data/loot/templates.yml");
+         ensureFile(paths.lootPlacedFile(), "config-defaults/data/loot/placed.yml");
+@@ -362,6 +370,60 @@
+         } catch (IOException ex) {
+             plugin.getLogger().severe("[ConfigManager] Failed to create file " + target.getPath() + ": " + ex.getMessage());
+         }
++    }
++
++    private void ensureDirectoryDefaults(File targetDir, String resourceDir) {
++        List<String> resources = listYamlResources(resourceDir);
++        if (resources.isEmpty()) {
++            plugin.getLogger().warning("[ConfigManager] No bundled defaults found under " + resourceDir);
++            return;
++        }
++
++        int copied = 0;
++        for (String resourcePath : resources) {
++            String relativePath = resourcePath.substring(resourceDir.length() + 1);
++            File target = new File(targetDir, relativePath);
++            if (YamlFileStore.copyResourceIfAbsent(plugin, resourcePath, target)) {
++                copied++;
++            }
++        }
++
++        if (copied > 0) {
++            plugin.getLogger().info("[ConfigManager] Installed " + copied + " bundled defaults from " + resourceDir);
++        }
++    }
++
++    private List<String> listYamlResources(String resourceDir) {
++        List<String> resources = new ArrayList<>();
++        try {
++            URI location = plugin.getClass().getProtectionDomain().getCodeSource().getLocation().toURI();
++            Path codePath = Path.of(location);
++
++            if (Files.isDirectory(codePath)) {
++                Path root = codePath.resolve(resourceDir);
++                if (!Files.exists(root)) {
++                    return resources;
++                }
++                try (Stream<Path> stream = Files.walk(root)) {
++                    stream.filter(Files::isRegularFile)
++                            .filter(path -> path.getFileName().toString().endsWith(".yml"))
++                            .forEach(path -> resources.add(resourceDir + "/" + root.relativize(path).toString().replace(File.separatorChar, '/')));
++                }
++                return resources;
++            }
++
++            try (JarFile jar = new JarFile(codePath.toFile())) {
++                String prefix = resourceDir.endsWith("/") ? resourceDir : resourceDir + "/";
++                jar.stream()
++                        .filter(entry -> !entry.isDirectory())
++                        .map(entry -> entry.getName().replace('\\', '/'))
++                        .filter(name -> name.startsWith(prefix) && name.endsWith(".yml"))
++                        .forEach(resources::add);
++            }
++        } catch (Exception ex) {
++            plugin.getLogger().warning("[ConfigManager] Failed to list defaults under " + resourceDir + ": " + ex.getMessage());
++        }
++        return resources;
+     }
+ 
+     private void ensureCoreDefaults() {

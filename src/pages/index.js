@@ -4,6 +4,7 @@ import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import {useState} from 'react';
 import styles from './index.module.css';
+import plasticStyles from './plastic.module.css';
 
 const quickLinks = [
   {
@@ -129,6 +130,144 @@ const FeatureCard = ({title, images}) => {
   );
 };
 
+const featureShowcase = [
+  {
+    code: 'M-01',
+    align: 'left',
+    kicker: 'MATCH CONTROL',
+    lines: ['战局', '管理器'],
+    images: ['/img/features/match-manager-1.png', '/img/features/match-manager-2.png'],
+  },
+  {
+    code: 'M-02',
+    align: 'right',
+    kicker: 'COMMAND LINE',
+    lines: ['MTKV', 'CLI'],
+    images: ['/img/features/mtkv-cli.png'],
+  },
+  {
+    code: 'M-03',
+    align: 'left',
+    kicker: 'EXTRACTION NETWORK',
+    lines: ['撤离点', '系统'],
+    images: ['/img/features/extract-point.png'],
+  },
+  {
+    code: 'M-04',
+    align: 'right',
+    kicker: 'SOCIAL LINK',
+    lines: ['社交', '系统'],
+    images: ['/img/features/social-system.png'],
+  },
+  {
+    code: 'M-05',
+    align: 'left',
+    kicker: 'SUPPLY CACHE',
+    lines: ['物资箱', '系统'],
+    images: ['/img/features/loot-box-1.png', '/img/features/loot-box-2.png'],
+  },
+  {
+    code: 'M-06',
+    align: 'right',
+    kicker: 'PROGRESSION CORE',
+    lines: ['进度', '系统'],
+    images: ['/img/features/progress-system.png'],
+  },
+  {
+    code: 'M-07',
+    align: 'left',
+    kicker: 'FIELD TELEMETRY',
+    lines: ['统计', '信息'],
+    images: ['/img/features/stats-system.png'],
+  },
+];
+
+function PlasticFeatureRow({feature}) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const imageCount = feature.images.length;
+
+  const showPrevious = () => {
+    setActiveIndex((index) => (index === 0 ? imageCount - 1 : index - 1));
+  };
+
+  const showNext = () => {
+    setActiveIndex((index) => (index === imageCount - 1 ? 0 : index + 1));
+  };
+
+  const copy = (
+    <div className={`${plasticStyles.featureCopy} ${styles.homePlasticCopy}`}>
+      <div className={`${plasticStyles.featureKicker} ${styles.homePlasticKicker}`}>{feature.kicker}</div>
+      <Heading as="h3" className={`${plasticStyles.featureTitle} ${styles.homePlasticTitle}`}>
+        {feature.lines.map((line) => (
+          <span key={line}>{line}</span>
+        ))}
+      </Heading>
+    </div>
+  );
+
+  const visual = (
+    <div className={`${plasticStyles.featureVisual} ${styles.homePlasticVisual}`} aria-hidden="true">
+      <div className={`${plasticStyles.visualFrame} ${styles.homePlasticFrame}`}>
+        <img
+          className={`${plasticStyles.visualImage} ${styles.homePlasticImage}`}
+          src={feature.images[activeIndex]}
+          alt={`${feature.lines.join('')} ${activeIndex + 1}`}
+          loading="lazy"
+        />
+        <span className={`${plasticStyles.visualCode} ${styles.homePlasticCode}`}>{feature.code}</span>
+        {imageCount > 1 && (
+          <>
+            <button
+              type="button"
+              className={`${styles.homePlasticNavButton} ${styles.homePlasticNavPrev}`}
+              onClick={showPrevious}
+              aria-label={`${feature.lines.join('')}：上一张图片`}>
+              ‹
+            </button>
+            <button
+              type="button"
+              className={`${styles.homePlasticNavButton} ${styles.homePlasticNavNext}`}
+              onClick={showNext}
+              aria-label={`${feature.lines.join('')}：下一张图片`}>
+              ›
+            </button>
+            <span className={styles.homePlasticCounter}>
+              {String(activeIndex + 1).padStart(2, '0')} / {String(imageCount).padStart(2, '0')}
+            </span>
+            <div className={styles.homePlasticIndicators}>
+              {feature.images.map((image, index) => (
+                <button
+                  key={image}
+                  type="button"
+                  className={`${styles.homePlasticIndicator} ${index === activeIndex ? styles.homePlasticIndicatorActive : ''}`}
+                  onClick={() => setActiveIndex(index)}
+                  aria-label={`查看第 ${index + 1} 张图片`}
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+
+  return (
+    <div className={`${plasticStyles.featureRow} ${feature.align === 'right' ? plasticStyles.featureRowright : ''}`}>
+      {feature.align === 'left' ? (
+        <>
+          {visual}
+          {copy}
+        </>
+      ) : (
+        <>
+          {copy}
+          {visual}
+        </>
+      )}
+    </div>
+  );
+}
+
 // 大标题：从右到左逐字 blur-up
 const SplitTitle = ({lines, className, baseDelay = 0}) => {
   return (
@@ -157,20 +296,9 @@ const SplitTitle = ({lines, className, baseDelay = 0}) => {
   );
 };
 
-const noop = (e) => {
-  e?.preventDefault?.();
-  /* TODO: 接入支付 */
-};
-
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   const [selectedPreview, setSelectedPreview] = useState(quickLinks[0]);
-  const [proPlan, setProPlan] = useState('lifetime'); // 'lifetime' | 'sub'
-  const [subMonths, setSubMonths] = useState(1); // 1 | 2 | 3
-
-  const subTotal = 45 * subMonths;
-  const priceLabel = proPlan === 'lifetime' ? '150' : String(subTotal);
-  const priceKey = `${proPlan}-${subMonths}`;
 
   return (
     <Layout
@@ -187,13 +315,13 @@ export default function Home() {
                 <span className={styles.sectorText}>| SECTOR · MTKV</span>
                 <span className={styles.gridCoord}>GRID 37.43N · 115.12E | UTC</span>
               </div>
-              <div className={styles.dossierBadge}>DOSSIER · MINECRAFTTKV / TACTICAL WIKI</div>
+              <div className={styles.dossierBadge}>DOSSIER · MINECRAFTTKV / BETA.1-PREVIEW3</div>
               <Heading as="h1" className={styles.heroTitle}>
                 <SplitTitle lines={['MINECRAFT', 'TKV · WIKI']} baseDelay={120} />
               </Heading>
               <div className={styles.missionBrief}>— MISSION BRIEF —</div>
               <p className={styles.heroSubtitle}>
-                关于 <strong>MinecraftTKV</strong> 插件的战术级说明档案。部署、系统、玩家命令与管理后门，经过整理、编号、上锁——现已就位，随时可以交付行动组。
+                <strong>MinecraftTKV Beta.1-Preview3</strong> 测试版本现已更新。集中整理战局管理、SA / COB AI、武器系统、物资箱、钥匙卡、藏身处、社交功能与完整配置文档，帮助服主快速部署并稳定运行。
               </p>
               <div className={styles.actions}>
                 <Link className={styles.primaryButton} to="/docs/intro">
@@ -265,7 +393,7 @@ export default function Home() {
               <div className={styles.statSublabel}>命令条目</div>
             </div>
             <div className={styles.statCard}>
-              <div className={styles.statValue}>Alpha.2</div>
+              <div className={styles.statValue}>BETA.1</div>
               <div className={styles.statLabel}>PATCH</div>
               <div className={styles.statSublabel}>当前版本</div>
             </div>
@@ -319,7 +447,7 @@ export default function Home() {
       </section>
 
       {/* ---------- Features Showcase ---------- */}
-      <section className={styles.featuresSection}>
+      <section className={`${styles.featuresSection} ${plasticStyles.featuresSection}`}>
         <div className="container">
           <div className={styles.sectionHeader}>
             <div className={styles.sectionBadge}>SECTION · 02.5 · SHOWCASE</div>
@@ -331,188 +459,17 @@ export default function Home() {
               <span className={styles.hazardStripe} aria-hidden="true" />
             </div>
             <p className={styles.sectionSubtitle}>
-              从战局管理到统计系统，体验 MinecraftTKV 的核心功能模块。
+              从战局管理、SA / COB AI 到武器、物资箱与社交系统，快速了解 Beta.1-Preview3 的核心功能。
             </p>
           </div>
-          <div className={styles.featuresGrid}>
-            <FeatureCard
-              title="战局管理器"
-              images={['/img/features/match-manager-1.png', '/img/features/match-manager-2.png']}
-            />
-            <FeatureCard
-              title="MTKV CLI"
-              images={['/img/features/mtkv-cli.png']}
-            />
-            <FeatureCard
-              title="撤离点"
-              images={['/img/features/extract-point.png']}
-            />
-            <FeatureCard
-              title="社交系统"
-              images={['/img/features/social-system.png']}
-            />
-            <FeatureCard
-              title="物资箱"
-              images={['/img/features/loot-box-1.png', '/img/features/loot-box-2.png']}
-            />
-            <FeatureCard
-              title="进度系统"
-              images={['/img/features/progress-system.png']}
-            />
-            <FeatureCard
-              title="统计信息"
-              images={['/img/features/stats-system.png']}
-            />
+          <div className={plasticStyles.featuresTrack}>
+            {featureShowcase.map((feature) => (
+              <PlasticFeatureRow key={feature.code} feature={feature} />
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ---------- Pricing ---------- */}
-      <section className={styles.pricingSection}>
-        <div className="container">
-          <div className={styles.sectionHeader}>
-            <div className={styles.sectionBadge}>SECTION · 03 · ARSENAL</div>
-            <div className={styles.sectionHeaderRow}>
-              <Heading as="h2" className={styles.sectionTitle}>
-                <SplitTitle lines={['选择你的装备等级']} />
-                <span className={styles.titleEn}> / SELECT YOUR LOADOUT</span>
-              </Heading>
-              <span className={styles.hazardStripe} aria-hidden="true" />
-            </div>
-            <p className={styles.sectionSubtitle}>
-              两档配置——从单服实用到全服战备。一次付费，长期服役。
-            </p>
-          </div>
-          <div className={styles.pricingGrid}>
-            {/* PRO Tier */}
-            <div className={styles.pricingCard}>
-              <Brackets />
-              <div className={styles.tierBadge}>TIER-01</div>
-              <div className={styles.issueLabel}>STANDARD ISSUE</div>
-              <div className={styles.tierName}>PRO</div>
-
-              <div className={styles.planTabs} role="tablist">
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={proPlan === 'lifetime'}
-                  className={`${styles.planTab} ${proPlan === 'lifetime' ? styles.planTabActive : ''}`}
-                  onClick={() => setProPlan('lifetime')}>
-                  永久买断<span>ONE-TIME</span>
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={proPlan === 'sub'}
-                  className={`${styles.planTab} ${proPlan === 'sub' ? styles.planTabActive : ''}`}
-                  onClick={() => setProPlan('sub')}>
-                  订阅<span>SUBSCRIPTION</span>
-                </button>
-              </div>
-
-              <div className={styles.priceArea}>
-                <div className={styles.pricingRow} key={priceKey}>
-                  <div className={styles.priceTag}>
-                    <span className={styles.currency}>¥</span>
-                    <span className={`${styles.price} ${styles.priceRoll}`}>{priceLabel}</span>
-                    <span className={styles.period}>
-                      {proPlan === 'lifetime' ? '一次性' : `/ ${subMonths} 个月`}
-                    </span>
-                  </div>
-                </div>
-                <div className={styles.accessLabel} key={`label-${priceKey}`}>
-                  {proPlan === 'lifetime'
-                    ? '永久授权 · 无月费'
-                    : `按月订阅 ¥45/月 · 当前 ${subMonths} 个月，单次最多 3 个月`}
-                </div>
-              </div>
-
-              {/* 订阅时长选择（slot 高度恒定，永久态显示提示） */}
-              <div className={styles.durationSlot}>
-                {proPlan === 'sub' ? (
-                  <div className={styles.durationGroup} role="radiogroup" aria-label="订阅时长">
-                    {[1, 2, 3].map((m) => (
-                      <button
-                        key={m}
-                        type="button"
-                        role="radio"
-                        aria-checked={subMonths === m}
-                        className={`${styles.durationChip} ${subMonths === m ? styles.durationChipActive : ''}`}
-                        onClick={() => setSubMonths(m)}>
-                        {m} 月
-                      </button>
-                    ))}
-                  </div>
-                ) : (
-                  <div className={styles.durationHint}>买断后无需续费 · 享所有未来版本</div>
-                )}
-              </div>
-
-              <div className={styles.tierDescription} key={`desc-${proPlan}`}>
-                {proPlan === 'lifetime'
-                  ? '单服部署，覆盖核心模块与基础维护更新。'
-                  : '短期试用或临时活动部署，灵活上下机。订阅期内享 PRO 全部模块。'}
-              </div>
-
-              <ul className={styles.featureList}>
-                <li>单服授权 · 1× 节点</li>
-                <li>核心模块全开放</li>
-                <li>社区频道支持</li>
-                <li>版本自动更新</li>
-              </ul>
-
-              <button type="button" className={styles.buyButton} onClick={noop} key={`btn-${priceKey}`}>
-                {proPlan === 'lifetime'
-                  ? '永久买断 · ¥150'
-                  : `订阅 ${subMonths} 个月 · 共 ¥${subTotal}`} ↗
-              </button>
-            </div>
-
-            {/* MAX Tier */}
-            <div className={`${styles.pricingCard} ${styles.pricingCardRecommended}`}>
-              <Brackets />
-              <div className={styles.recommendedBadge}>◆ RECOMMENDED · 推荐 ◆</div>
-              <div className={styles.tierBadge}>TIER-02</div>
-              <div className={styles.issueLabel}>FULL LOADOUT</div>
-              <div className={styles.tierName}>MAX</div>
-
-              {/* 占位以与 PRO 的 tab 同高 */}
-              <div className={styles.planTabsPlaceholder} aria-hidden="true" />
-
-              <div className={styles.priceArea}>
-                <div className={styles.pricingRow}>
-                  <div className={`${styles.priceTag} ${styles.priceTagPlaceholder}`}>
-                    <span className={styles.pricePlaceholder}>定价暂未开放</span>
-                  </div>
-                </div>
-                <div className={styles.accessLabel}>价格与购买入口暂不显示</div>
-              </div>
-
-              <div className={styles.durationSlot}>
-                <div className={styles.durationHint}>多服无限部署 · 全模块解锁</div>
-              </div>
-
-              <div className={styles.tierDescription}>
-                多服无限授权，全模块解锁，优先技术支持。
-              </div>
-
-              <ul className={styles.featureList}>
-                <li>多服无限授权 · ∞× 节点</li>
-                <li>全部高级模块解锁</li>
-                <li>优先 1v1 技术支持</li>
-                <li>永久免费版本更新</li>
-              </ul>
-
-              <button
-                type="button"
-                className={`${styles.buyButton} ${styles.buyButtonMax} ${styles.buyButtonPlaceholder}`}
-                disabled>
-                MAX 暂未开放 · COMING SOON
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
     </Layout>
   );
 }

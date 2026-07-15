@@ -7,6 +7,10 @@ description: "market.yml 市场系统配置说明"
 
 `market.yml` 用于控制市场系统是否启用、玩家挂单规则、价格范围、税率以及相关 GUI 标题。
 
+:::tip
+商人小时库存、价格表、好感度门槛和收购分类请查看 [商人配置文件](./traders.md)。
+:::
+
 ## 基础配置
 
 ```yml
@@ -119,6 +123,21 @@ market:
 :::tip
 如果你需要统一服务器术语或美术风格，这一组标题配置很适合优先整理。
 :::
+
+## Beta.1 配置结构
+
+```yml
+market:
+  enabled: true
+  taxRate: 0.05
+  minPrice: "1.00"
+  maxPrice: "999999999.99"
+  maxListingsPerPlayer: 10
+  expireHours: 48
+  allowDamagedItems: true
+```
+
+`enabled` 控制市场功能，`taxRate` 为税率，`minPrice` 与 `maxPrice` 为价格范围，`maxListingsPerPlayer` 为每位玩家最大上架数，`expireHours` 为过期时长，`allowDamagedItems` 控制是否允许上架有耐久损耗的物品。
 
 ## 完整默认文件
 

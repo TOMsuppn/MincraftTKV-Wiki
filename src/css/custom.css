@@ -7,12 +7,12 @@
   --ifm-color-primary-lighter: #ffa86c;
   --ifm-color-primary-lightest: #ffc49a;
   --ifm-code-font-size: 95%;
-  /* 正文：Noto Serif SC（Google Fonts，SIL OFL，可商用宋体） */
-  --ifm-font-family-base: 'Noto Serif SC', 'Source Han Serif SC',
-    'Songti SC', 'STSong', serif;
-  /* 标题强调：统一使用 Noto Serif SC 宋体 */
-  --ifm-heading-font-family: 'Noto Serif SC',
-    'Source Han Serif SC', 'Songti SC', serif;
+  /* 正文：Windows 优先使用 YaHei UI，避免系统默认衬线字体发虚 */
+  --ifm-font-family-base: 'Microsoft YaHei UI', 'Microsoft YaHei',
+    'Noto Sans SC', 'Source Han Sans SC', 'PingFang SC', 'Segoe UI', sans-serif;
+  /* 标题也使用平滑的中文无衬线字体 */
+  --ifm-heading-font-family: 'Microsoft YaHei UI', 'Microsoft YaHei',
+    'Noto Sans SC', 'Source Han Sans SC', 'PingFang SC', 'Segoe UI', sans-serif;
   /* 等宽：JetBrains Mono（Apache 2.0，可商用） */
   --ifm-font-family-monospace: 'JetBrains Mono', 'SFMono-Regular', Menlo,
     Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
@@ -72,6 +72,8 @@ body {
     radial-gradient(circle at top left, rgba(255, 138, 61, 0.08), transparent 20%),
     linear-gradient(180deg, #111217 0%, #0b0b0f 56%, #09090c 100%);
   color: var(--ifm-font-color-base);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
 }
 
 .main-wrapper,
@@ -195,7 +197,6 @@ body {
   max-height: calc(var(--ifm-navbar-height) - 1rem);
   object-fit: contain;
   object-position: left center;
-  filter: brightness(0) invert(1) contrast(1.12);
   opacity: 0.98;
 }
 
@@ -242,6 +243,28 @@ body {
 .menu__link:hover,
 .table-of-contents__link:hover {
   color: #fff8ef;
+}
+
+.navbar__plastic-link {
+  background:
+    linear-gradient(90deg, rgba(39, 168, 255, 0.16), rgba(7, 81, 216, 0.08));
+  border: 1px solid rgba(94, 178, 255, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  color: #8fcaff;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 700;
+  position: relative;
+}
+
+.navbar__plastic-link:hover,
+.navbar__plastic-link.navbar__link--active {
+  background:
+    linear-gradient(90deg, rgba(53, 174, 255, 0.24), rgba(7, 81, 216, 0.12));
+  border-color: rgba(123, 196, 255, 0.38);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 16px rgba(38, 148, 255, 0.26);
+  color: #d9efff;
 }
 
 .navbar__link--active,
@@ -2888,7 +2911,8 @@ img {
 }
 
 .navbar__link {
-  font-family: 'Noto Serif SC', 'PingFang SC', serif;
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Microsoft YaHei',
+    'Noto Sans SC', serif;
   font-weight: 600;
   font-size: 0.95rem;
   letter-spacing: 0.02em;
@@ -2902,7 +2926,8 @@ img {
 .navbar__items > a.button {
   border-radius: 999px;
   padding: 0 1.15rem;
-  font-family: 'Noto Serif SC', serif;
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Microsoft YaHei',
+    'Noto Sans SC', serif;
   font-size: 0.92rem;
   font-weight: 700;
   letter-spacing: 0.02em;
@@ -3305,7 +3330,7 @@ header[class*='heroBanner'] {
   padding: 0 0.4rem 0 0;
 }
 
-/* 强制所有 dock 文字按钮使用宋体（高优先级，覆盖任何 Oswald/Mono fallback） */
+/* 导航栏文字使用宋体，正文仍保持平滑无衬线字体 */
 .navbar .navbar__link,
 .navbar__items .navbar__link,
 .navbar__items--left .navbar__link,
@@ -3313,7 +3338,8 @@ header[class*='heroBanner'] {
 .navbar__items .navbar__link span,
 .navbar__title,
 .navbar__items .button {
-  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', serif !important;
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Microsoft YaHei',
+    'Noto Sans SC', serif !important;
   font-weight: 600;
   letter-spacing: 0.04em;
 }
@@ -3358,6 +3384,8 @@ header[class*='heroBanner'] {
 
 /* 文档标题增强 */
 .theme-doc-markdown h1 {
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Microsoft YaHei',
+    'Noto Sans SC', serif;
   position: relative;
   padding-bottom: 1rem;
   margin-bottom: 1.5rem;
@@ -3883,5 +3911,65 @@ header[class*='heroBanner'] {
 
   .doc-toc-column .table-of-contents__link:hover {
     padding-left: 0.68rem;
+  }
+}
+
+/* =========================================================
+   文档侧栏顶部衔接：让悬浮 Dock 与目录面板形成同一层级
+   ========================================================= */
+@media (min-width: 997px) {
+  .theme-doc-sidebar-container {
+    background:
+      linear-gradient(180deg, rgba(255, 138, 61, 0.035), transparent 8rem),
+      linear-gradient(180deg, #111218 0%, #0a0b0e 100%);
+    border-right-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .theme-doc-sidebar-menu {
+    padding-top: 1.3rem;
+  }
+
+  .theme-doc-sidebar-menu::before {
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    color: rgba(239, 231, 220, 0.42);
+    content: 'WIKI  /  DOCUMENTATION' !important;
+    display: flex;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    height: 1.85rem;
+    left: 1.1rem;
+    letter-spacing: 0.13em;
+    position: absolute;
+    right: 1.1rem;
+    text-transform: uppercase;
+    top: -2.1rem;
+  }
+
+  .theme-doc-sidebar-item-link-level-1 > .menu__link {
+    background:
+      linear-gradient(90deg, rgba(255, 138, 61, 0.14), rgba(255, 138, 61, 0.035)),
+      rgba(255, 255, 255, 0.018) !important;
+    border-color: rgba(255, 138, 61, 0.2) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      0 8px 24px rgba(0, 0, 0, 0.12);
+    margin-bottom: 1.35rem;
+  }
+
+  .theme-doc-sidebar-item-link-level-1 > .menu__link:hover {
+    background:
+      linear-gradient(90deg, rgba(255, 138, 61, 0.19), rgba(255, 138, 61, 0.06)),
+      rgba(255, 255, 255, 0.025);
+  }
+
+  .theme-doc-sidebar-item-category {
+    margin-top: 0.9rem;
+  }
+
+  .theme-doc-sidebar-item-category > .menu__list-item-collapsible > .menu__link {
+    border-left: 2px solid rgba(255, 138, 61, 0.28);
+    padding-left: 0.65rem;
   }
 }
