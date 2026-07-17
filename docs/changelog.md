@@ -13,6 +13,51 @@ toc_max_heading_level: 2
   <aside className="release-tags" aria-label="版本标签">
     <span className="release-tag release-tag--alpha">Beta.1</span>
     <span className="release-tag release-tag--pre">Preview</span>
+    <p className="release-date">2026-07-16</p>
+  </aside>
+  <div className="release-content">
+
+## <span className="release-version">MinecraftTKV-Beta.1-Preview5 v0.01.0105</span>
+
+:::tip 更新内容
+- `[~]` 修复 AI 瞬移升空的问题
+- `[~]` 隐藏 AI 的名称标签
+- `[+]` 新增 AI 防卡位机制
+- `[+]` 新增 MicroTV Bot AI v2（仅限原版端）
+- `[+]` 新增武器配件系统
+- `[~]` 优化武器系统外部显示效果
+- `[~]` 系统性修复商人 Excel、物品库与 Mod 物品联动的诸多问题
+- `[~]` 玩家因死亡撤离战局时，生命值不再恢复至满状态
+- `[+]` 新增栖息处饱食度恢复功能
+- `[+]` 新增藏身处、点位编辑器虚空掉落保护
+- `[+]` 新增玩家起始出装设置（配置位于藏身处）
+:::
+  </div>
+</div>
+
+<div className="release-entry release-entry--featured">
+  <aside className="release-tags" aria-label="版本标签">
+    <span className="release-tag release-tag--alpha">Beta.1</span>
+    <span className="release-tag release-tag--pre">Preview</span>
+    <p className="release-date">2026-07-15</p>
+  </aside>
+  <div className="release-content">
+
+## <span className="release-version">MinecraftTKV Beta.1-Preview4 v0.01.0065</span>
+
+:::tip 更新内容
+- `[~]` 改善许可证显示效果
+- `[~]` 修复点位编辑器 BOT 生成问题
+- `[~]` 优化 NMSBOT 影响下的 MTPS 表现
+- `[+]` 新增自动更新模块（e-stone）
+:::
+  </div>
+</div>
+
+<div className="release-entry release-entry--featured">
+  <aside className="release-tags" aria-label="版本标签">
+    <span className="release-tag release-tag--alpha">Beta.1</span>
+    <span className="release-tag release-tag--pre">Preview</span>
     <p className="release-date">2026-07-14</p>
   </aside>
   <div className="release-content">

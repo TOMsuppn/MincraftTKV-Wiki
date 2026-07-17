@@ -11,6 +11,47 @@ description: "core.yml 核心总配置说明"
 
 原因：这里的改动会同时影响多个系统。
 
+## 本局离场后观战
+
+以下配置适用于玩家成功撤离、阵亡或撤离失败后留在本局观战。配置键保留 `death-spectate` 命名，以兼容已有配置。
+
+```yaml
+# 本局离场后观战：适用于成功撤离、阵亡与撤离失败（键名保留 death-spectate 以兼容已有配置）
+mtkv.raid.death-spectate.enabled: false
+mtkv.raid.death-spectate.entry-mode: PROMPT
+mtkv.raid.death-spectate.target-scope: PARTY_ONLY
+mtkv.raid.death-spectate.camera-mode: TARGET_LOCKED
+mtkv.raid.death-spectate.delay-seconds: 3
+mtkv.raid.death-spectate.prompt-timeout-seconds: 10
+mtkv.raid.death-spectate.prompt-timeout-action: RETURN_HIDEOUT
+mtkv.raid.death-spectate.freecam-radius: 16
+mtkv.raid.death-spectate.show-target-health: true
+mtkv.raid.death-spectate.show-target-armor: false
+mtkv.raid.death-spectate.show-target-distance: false
+mtkv.raid.death-spectate.chat-mode: DEAD_PARTY_ONLY
+mtkv.raid.death-spectate.reconnect-policy: RETURN_HIDEOUT
+mtkv.raid.death-spectate.ui-mode: INVENTORY
+```
+
+| 配置项 | 说明 |
+| --- | --- |
+| `enabled` | 是否启用离场后观战。 |
+| `entry-mode` | 进入方式；`PROMPT` 表示向玩家展示选择提示。 |
+| `target-scope` | 可观战目标范围；`PARTY_ONLY` 仅限同队仍在战局内的玩家。 |
+| `camera-mode` | 镜头模式；`TARGET_LOCKED` 将镜头锁定在观战目标。 |
+| `delay-seconds` | 离场后进入观战前的等待秒数。 |
+| `prompt-timeout-seconds` | 观战选择提示的超时秒数。 |
+| `prompt-timeout-action` | 提示超时后的动作；`RETURN_HIDEOUT` 表示返回藏身处。 |
+| `freecam-radius` | 自由镜头可活动半径；仅在自由镜头模式下生效。 |
+| `show-target-health` | 是否显示观战目标生命值。 |
+| `show-target-armor` | 是否显示观战目标护甲值。 |
+| `show-target-distance` | 是否显示与观战目标的距离。 |
+| `chat-mode` | 观战聊天范围；`DEAD_PARTY_ONLY` 仅允许离场/阵亡的队友交流。 |
+| `reconnect-policy` | 观战期间重连后的处理策略；`RETURN_HIDEOUT` 表示返回藏身处。 |
+| `ui-mode` | 观战操作界面模式；`INVENTORY` 使用背包界面。 |
+
+默认配置关闭观战功能。启用前请确认服务器的战局与队伍规则符合预期。
+
 ## 许可证
 
 `license.key`

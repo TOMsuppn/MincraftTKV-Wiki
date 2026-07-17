@@ -26,6 +26,46 @@ Bot配置文件位于插件数据目录的 `config/bot/` 文件夹中，用于�
 
 配置之间通过 ID 互相引用，引用不存在时会使用默认值或无法加载对应功能。修改后可使用 `/mtkv config reload` 重载配置。
 
+## Bot AI v2 开关（config/core.yml）
+
+新版 Bot 引擎的灰度开关位于 `config/core.yml`，不在 `config/bot/` 目录内：
+
+```yaml
+mtkv.ai.engine-v2: true
+mtkv.ai.motion-v2: true
+mtkv.ai.async-pathing: false
+mtkv.ai.viewer-sync-v2: true
+```
+
+### 混合端 COB 运动模型开关
+
+```yaml
+# COB 在不同服务端核心上的运动模型
+mtkv.compat.hybrid-policy.cob-motion-mode: auto
+```
+
+**`mtkv.ai.engine-v2`**：启用 SA/COB 共用的错峰调度器、生命周期管理和分层状态机。
+
+**`mtkv.ai.motion-v2`**：启用每个 server tick 运行的 SA 运动控制器。行为逻辑只提交移动意图，由运动控制器统一处理重力、地形碰撞和击退。
+
+**`mtkv.ai.async-pathing`**：启用快照异步寻路。默认关闭；只有服务器启动时的能力自检通过后才建议开启。
+
+**`mtkv.ai.viewer-sync-v2`**：启用观察者范围差异同步、相对移动和脏数据包合并。
+
+四个开关可以独立回退。`async-workers` 会在插件启动时创建线程池，因此修改该项后必须重启服务器；其他配置可先执行 `/mtkv config reload`，生产服仍建议在波次结束后重载。
+
+### 混合端 COB 运动模型
+
+`mtkv.compat.hybrid-policy.cob-motion-mode` 控制 COB 的模型和运动权威：
+
+- `auto`（默认）：Arclight、Mohist 等混合端使用 `kinematic-single`；Paper、Spigot 使用 `native-mirror`。
+- `kinematic-single`：只生成 packet-only PlayerNPC 和不可碰撞的 ArmorStand 命中代理，不生成隐藏 Pillager/Vindicator，也不把 NMS Player 注册到 `ServerLevel`。移动、方块碰撞、重力、寻路和击退全部由插件运动控制器处理，玩家靠近或穿过 COB 时不会被实体碰撞推开。
+- `native-mirror`：保留隐藏 Mob 的原生寻路，并把最终位置镜像给 PlayerNPC，主要用于 Paper/Spigot 或兼容性排障。
+
+插件启动和生成时会检查 PlayerInfo、metadata、装备、观察者同步、伤害入口以及命中代理。单模型能力检查失败时会清理未完成的模型并回退到 `native-mirror`，控制台只输出一次高优先级警告；警告同时说明回退后混合端可能重新出现实体碰撞。修改该配置后建议重启服务器并重新进入战局验证。
+
+`config/bot/combat.yml` 中的 `combat.collision` 只控制 Bot 与方块/地形的碰撞，不会开启 Bot 与玩家之间的实体互推。
+
 ## 机器人类型（bot-types.yml）
 
 ### 配置结构示例：
@@ -417,8 +457,9 @@ pathing:
   navigation-mode: native-first
   max-search-distance: 64
   max-search-nodes: 500
-  stuck-repath-ticks: 40
-  viewer-active-distance: 40.0
+  async-workers: 2
+  stuck-repath-ticks: 20
+  viewer-active-distance: 64.0
   passable-soft-blocks: true
   doors:
     open-blocking-doors: true
@@ -439,9 +480,11 @@ pathing:
 
 **max-search-nodes**：单次寻路最大搜索节点数
 
-**stuck-repath-ticks**：Bot 卡住后重新计算路径的等待 tick 数
+**async-workers**：异步寻路 worker 数量，可填写 `1`–`4`，默认 `2`。修改后需要重启服务器。
 
-**viewer-active-distance**：玩家处于该距离内时启用 Bot 的活动逻辑，单位为方块
+**stuck-repath-ticks**：有移动意图但位移不足时，进入卡住恢复前的等待 tick 数；按真实 server tick 计时
+
+**viewer-active-distance**：玩家进入该距离时立即唤醒 Bot，默认 `64.0` 格；离开 `72` 格并持续 `40` tick 后进入休眠心跳
 
 **passable-soft-blocks**：是否将软方块视为可通行
 
@@ -469,6 +512,9 @@ combat:
   melee-range: 2.7
   melee-damage: 6.0
   attack-cooldown-ticks: 13
+  damageable: true
+  knockback-multiplier: 1.0
+  collision: true
   forget-target-min-seconds: 45
   forget-target-max-seconds: 60
   flee-health-ratio: 0.30
@@ -485,6 +531,14 @@ combat:
 **melee-damage**：近战基础伤害
 
 **attack-cooldown-ticks**：攻击冷却时间，单位为 tick
+
+**damageable**：Bot 是否接收伤害。该配置不再隐式控制击退或地形碰撞。
+
+**knockback-multiplier**：攻击命中 Bot 时的击退倍率；`0` 表示免疫伤害击退，`1.0` 表示使用标准力度。
+
+**collision**：仅控制 SA Bot 运动时与方块、墙面和地形的碰撞。关闭后可能穿过地形，通常应保持 `true`。
+
+Bot 与玩家之间的被动实体互推固定关闭：玩家靠近或穿过 Bot 时，Bot 不会把玩家挤开。Boss 首次发现玩家时的咆哮也不再写入玩家速度。枪械、近战、爆炸和专用技能造成的攻击击退仍按各自伤害规则及 `knockback-multiplier` 结算。
 
 **forget-target-min-seconds**：目标丢失后的最短遗忘时间
 
@@ -618,4 +672,3 @@ debug:
 **log-state-changes**：是否记录 Bot 状态变化日志
 
 使用 Bot 调试命令时，还需要在 `config/core.yml` 中开启 `mtkv.debug: true`；两个开关都开启后调试命令才会生效。
-

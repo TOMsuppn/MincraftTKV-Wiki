@@ -150,6 +150,17 @@ price: 700.0
 weaponsounds:
   - bulletsmall
 weaponsounds_volume: 4.0
+hit-feedback:
+  body:
+    enabled: true
+    sound: BLOCK_NOTE_BLOCK_BASEDRUM
+    volume: 0.75
+    pitch: 0.65
+  headshot:
+    enabled: true
+    sound: ENTITY_EXPERIENCE_ORB_PICKUP
+    volume: 0.8
+    pitch: 1.65
 lore:
   - §7PISTOL
   - '§7伤害: §c3'
@@ -191,6 +202,17 @@ lore:
 **weaponsounds**：枪械开火音效列表，多个音效会随机播放
 
 **weaponsounds_volume**：单把枪械的枪声音量
+
+**hit-feedback**：命中反馈音效。仅实际射击者会听到；普通射击、AI 射击和旧版连发逻辑都会使用这组配置。
+
+- **body**：身体命中时的反馈音效，默认使用低沉的 `BLOCK_NOTE_BLOCK_BASEDRUM`。
+- **headshot**：爆头时的反馈音效，默认使用清亮的 `ENTITY_EXPERIENCE_ORB_PICKUP`。
+- **enabled**：是否播放对应类型的命中反馈，可分别关闭身体命中和爆头反馈。
+- **sound**：Bukkit/Minecraft 音效枚举名，可替换为任意服务端版本支持的音效。
+- **volume**：音量。
+- **pitch**：音调。
+
+未配置 `hit-feedback` 时使用上述默认值。若只希望保留一种反馈，可将另一种的 `enabled` 设为 `false`。
 
 **lore**：枪械 Lore。系统会在此基础上显示弹药和附件相关信息
 
@@ -357,4 +379,3 @@ lore:
 2. 附件无法安装：检查附件 `type`、枪械 ID 是否位于 `compatible-guns`，以及枪械系统是否已重载。
 3. 换弹容量不正确：检查附件是否修改了 `maxbullets`，并确认枪械物品确实是安装附件后的物品。
 4. 修改配置后没有生效：使用 `/mtkv weapon reload`，并查看控制台是否有 YAML 或材质错误。
-
