@@ -27,6 +27,7 @@ const sidebars = {
       items: [
         'systems/hideout',
         'systems/extraction-points',
+        'systems/lootbox-display',
         'systems/papi-variables',
       ],
     },

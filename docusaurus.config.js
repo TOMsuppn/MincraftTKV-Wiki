@@ -24,6 +24,7 @@ const config = {
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
+  clientModules: ['./src/clientModules/socialLocale.js'],
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -41,7 +42,17 @@ const config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'zh-Hans',
-    locales: ['zh-Hans'],
+    locales: ['zh-Hans', 'en'],
+    localeConfigs: {
+      'zh-Hans': {
+        label: '中文',
+        htmlLang: 'zh-CN',
+      },
+      en: {
+        label: 'English',
+        htmlLang: 'en',
+      },
+    },
   },
 
   presets: [
@@ -123,6 +134,12 @@ const config = {
             className: 'navbar__plastic-link',
           },
           {
+            type: 'localeDropdown',
+            position: 'right',
+            dropdownItemsBefore: [],
+            dropdownItemsAfter: [],
+          },
+          {
             type: 'html',
             position: 'right',
             value:
@@ -187,6 +204,17 @@ const config = {
               {
                 label: '撤离点',
                 to: '/docs/systems/extraction-points',
+              },
+            ],
+          },
+          {
+            title: 'Language',
+            items: [
+              {
+                html: '<a href="/" lang="zh-CN">中文</a>',
+              },
+              {
+                html: '<a href="/en/" lang="en">English</a>',
               },
             ],
           },

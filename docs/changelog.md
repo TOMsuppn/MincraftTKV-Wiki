@@ -12,6 +12,33 @@ toc_max_heading_level: 2
 <div className="release-entry release-entry--featured">
   <aside className="release-tags" aria-label="版本标签">
     <span className="release-tag release-tag--alpha">Beta.1</span>
+    <span className="release-tag release-tag--pre">正式版</span>
+    <p className="release-date">2026-07-20</p>
+  </aside>
+  <div className="release-content">
+
+## <span className="release-version">MinecraftTKV Beta.1 正式版 v0.01.0139</span>
+
+:::tip 更新内容
+- `[+]` 扩展剧情模式章节
+- `[+]` 剧情编辑器新增区域触发、交互点、模型展示与任务条件绑定系统（#41）
+- `[+]` 藏身处升级项的等级上限支持配置化扩展（#33）
+- `[+]` 剧情项目的地图设置现已与初始文件强绑定
+- `[~]` 暂时禁用地图随机事件模块
+- `[+]` 物资箱支持自定义世界模型、模组方块与多状态展示
+- `[+]` 新增观战功能
+- `[+]` 撤离点支持自定义样式，新增付费撤离点并上线撤离点编辑器
+- `[~]` 调整钥匙房编辑 GUI
+- `[+]` 支持为不同武器配置命中音效
+- `[+]` 武器 Lore 新增详细描述，包含单元类型等信息
+- `[+]` 支持自定义钥匙卡；钥匙卡配置文件迁移至 `itemlab/keycards.yml`（自动迁移）
+:::
+  </div>
+</div>
+
+<div className="release-entry release-entry--featured">
+  <aside className="release-tags" aria-label="版本标签">
+    <span className="release-tag release-tag--alpha">Beta.1</span>
     <span className="release-tag release-tag--pre">Preview</span>
     <p className="release-date">2026-07-16</p>
   </aside>

@@ -1,0 +1,50 @@
+{
+  "link.title.Docs": {
+    "message": "Docs",
+    "description": "Footer column title"
+  },
+  "link.title.Commands": {
+    "message": "Commands",
+    "description": "Footer column title"
+  },
+  "link.title.Systems": {
+    "message": "Systems",
+    "description": "Footer column title"
+  },
+  "link.title.Language": {
+    "message": "Language",
+    "description": "Footer column title"
+  },
+  "link.item.label.首次使用": {
+    "message": "Getting started",
+    "description": "Footer link label"
+  },
+  "link.item.label.更新日志": {
+    "message": "Changelog",
+    "description": "Footer link label"
+  },
+  "link.item.label.玩家命令": {
+    "message": "Player commands",
+    "description": "Footer link label"
+  },
+  "link.item.label.管理命令": {
+    "message": "Admin commands",
+    "description": "Footer link label"
+  },
+  "link.item.label.藏身处": {
+    "message": "Hideouts",
+    "description": "Footer link label"
+  },
+  "link.item.label.撤离点": {
+    "message": "Extraction points",
+    "description": "Footer link label"
+  },
+  "link.item.label.中文": {
+    "message": "中文",
+    "description": "Footer language label"
+  },
+  "link.item.label.English": {
+    "message": "English",
+    "description": "Footer language label"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "item.label.文档": {
+    "message": "Docs",
+    "description": "Navbar item with label 文档"
+  },
+  "item.label.更新日志": {
+    "message": "Changelog",
+    "description": "Navbar item with label 更新日志"
+  },
+  "item.label.计划": {
+    "message": "Plans",
+    "description": "Navbar item with label 计划"
+  }
+}
